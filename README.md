@@ -1,7 +1,14 @@
 # management_projet_digitaux
 
-Nous sommes une jeune équipe de data scientists et data analysts ayant reçu une demande d'un client.
+We are a young team of data scientists and data analysts who received a request from a client.
 
-Besoins du client : Un restaurateur a fait appel à nos services pour concevoir un outil lui offrant un avantage concurrentiel en facilitant la suggestion de plats à ses clients.
+Customer needs: A restaurateur used our services to design a tool giving him a competitive advantage by making it easier to suggest dishes to his customers.
 
-Nos données sont issus du restaurateur lui même qui nous à partager ces informations sur ses plats et ingrédients 
+Our data comes from the restaurateur himself who shares his information with us on his dishes and ingredients.
+
+
+
+#objectifs 
+
+- descriptive data analysis 
+- algorithm on python
