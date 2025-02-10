@@ -8,6 +8,10 @@ Customer needs: A restaurant owner used our services to design a tool giving him
 
 Our data comes from the restaurant owner himself who shares his information with us on his dishes and ingredients.
 
+#description of database
+
+our database is made up of two databases, namely menu data and dish data. These two bases will be joined to form the final database on which the project will be based.
+
 
 
 #objectifs 
