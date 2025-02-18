@@ -14,7 +14,7 @@ DATABASE_DIR = BASE_DIR / "Databases"  # excel file repository
 menu = pd.read_excel(DATABASE_DIR / "antibes-menu-2025.xlsx")
 dishes = pd.read_excel(DATABASE_DIR / "antibes-plats-2025.xlsx")
 
-#first tests on datasets
+####DATA CLEANSE
 #menu dataset cleaning
 print(menu.head)
 print(menu.info)
@@ -59,9 +59,7 @@ print(menu.head().T)
 print(menu["dish_allergen"].unique())
 print(menu["dish_label"].unique())
 
-# 
-menu.hist(bins=50, figsize=(20,15))
-plt.show()
+
 
 #dishes dataset cleaning
 print(dishes.head)
@@ -99,3 +97,27 @@ new_names = {
 dishes.rename(columns=new_names, inplace=True)
 print(dishes.columns)
 
+# ##DESCRIPTIVE STATISTICS 
+ 
+print(dishes["product_allergen"].unique())
+print(dishes['product_nutrient'].value_counts())
+
+dish_counts = dishes['dish_name'].value_counts()
+
+# barplot
+sns.barplot(x=dish_counts.index, y=dish_counts.values)
+plt.title('Dish frequency')
+plt.xlabel('Dish name')
+plt.ylabel('Number of occurrences')
+plt.show()
+
+allergen_dish_counts = dishes.groupby('product_allergen')['dish_name'].nunique()
+
+
+sns.barplot(x=allergen_dish_counts.index, y=allergen_dish_counts.values)
+plt.title('Number of dishes per allergen')
+plt.xlabel('Allergen')
+plt.ylabel('Number of unique dishes')
+plt.show()
+#correlation_matrix = dishes.corr()
+#print(correlation_matrix)
