@@ -1,20 +1,31 @@
-# management_projet_digitaux
+# 🍽️ Restaurant Menu & Allergen Information System  
 
-#analytic product
+## 📌 Project Overview  
+This project aims to provide a user-friendly interface for restaurant customers to view dish compositions, including allergenic and non-allergenic ingredients. Our client, a restaurateur, wants to enhance transparency and improve customer experience by allowing them to check meal components before ordering.  
 
-We are a young team of data scientists and data analysts who received a request from a client.
+## 🔥 Key Features  
+- 📝 **Menu Display**: Customers can browse the restaurant’s menu with detailed dish compositions.  
+- ⚠️ **Allergen Information**: Clearly labeled allergens for each dish to help customers make informed choices.  
+- 🔍 **Ingredient Breakdown**: A structured view of all ingredients, classified based on allergenic properties.  
+- 📊 **Data Analysis & Visualization**: Statistical insights on dish frequency and allergen distribution using Python and Seaborn.  
 
-Customer needs: A restaurant owner used our services to design a tool giving him a competitive advantage by making it easier to suggest dishes to his customers.
+## 🛠️ Technologies Used  
+- **Python**: Data processing and analysis  
+- **Pandas & NumPy**: Data cleaning and manipulation  
+- **Seaborn & Matplotlib**: Data visualization  
+- **VS Code**: Development environment  
 
-Our data comes from the restaurant owner himself who shares his information with us on his dishes and ingredients.
+## 💂️📚 Project Structure  
+```
+💞 Restaurant-Menu-Allergen
+ ┣ 📚 data/             # Raw and processed dataset files
+ ┣ 📚 scripts/          # Python scripts for data processing and visualization
+ ┣ 📚 ui/               # User interface components (if applicable)
+ ┣ 📄 README.md         # Project documentation
+ ┗ 📄 requirements.txt   # Dependencies list
+```
 
-#description of database
-
-our database is made up of two databases, namely menu data and dish data. These two bases will be joined to form the final database on which the project will be based.
-
-
-
-#objectifs 
-
-- descriptive data analysis 
-- algorithm on python
+## 🚀 Next Steps  
+- Implement an interactive UI for customer use  
+- Optimize allergen labeling for better readability  
+- Enhance visualization for improved data interpretation  
