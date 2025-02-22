@@ -14,6 +14,14 @@ This project aims to provide a user-friendly interface for restaurant customers 
 - **Pandas & NumPy**: Data cleaning and manipulation  
 - **Seaborn & Matplotlib**: Data visualization  
 - **VS Code**: Development environment  
+- **GitHub** for version control
+
+## 🚀 Getting Started
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo-name.git
+   cd your-repo-name
+
 
 ## 💂️📚 Project Structure  
 ```
