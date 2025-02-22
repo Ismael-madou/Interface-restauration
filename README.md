@@ -19,7 +19,7 @@ This project aims to provide a user-friendly interface for restaurant customers 
 ## 🚀 Getting Started
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo-name.git
+   git clone https://gitlab-mi.univ-reims.fr/mado0007/management_projet_digitaux.git
    cd your-repo-name
 
 
