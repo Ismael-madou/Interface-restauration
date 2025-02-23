@@ -1,4 +1,33 @@
 # 🍽️ Restaurant Menu & Allergen Information System  
+## Table of contents 
+
+1. [First steps](#firststep)
+2. [Project Overview](#state)
+3. [Key Features](#use of datasets)  
+    
+4. [Technologies Used](#tests)
+5. [Project Structure](#)
+6. [Next Steps](#outils)
+7. [Source](#source)
+8. [Authors](#auteurs)
+9. [License](#licence)
+
+
+## First steps <a name="firststep"></a>
+
+1. Install the required dependencies, two methods are available:  
+
+    - First method, use the command prompt, go to the root of the project (where the `requirements.txt` file is located) and executing the following command:  
+
+    ```bash
+    pip install -r requirements.txt 
+    ```
+
+  
+
+
+
+
 
 ## 📌 Project Overview  
 This project aims to provide a user-friendly interface for restaurant customers to view dish compositions, including allergenic and non-allergenic ingredients. Our client, a restaurateur, wants to enhance transparency and improve customer experience by allowing them to check meal components before ordering.  
@@ -16,16 +45,16 @@ This project aims to provide a user-friendly interface for restaurant customers 
 - **VS Code**: Development environment  
 - **GitHub** for version control
 
-## 🚀 Getting Started
+##  Getting Started
 1. Clone the repository:
    ```bash
    git clone https://gitlab-mi.univ-reims.fr/mado0007/management_projet_digitaux.git
-   cd your-repo-name
+   cd management_projet_digitaux
 
 
-## 💂️📚 Project Structure  
+##  Project Structure  
 ```
-💞 Restaurant-Menu-Allergen
+  Restaurant-Menu-Allergen
  ┣ 📚 data/             # Raw and processed dataset files
  ┣ 📚 scripts/          # Python scripts for data processing and visualization
  ┣ 📚 ui/               # User interface components (if applicable)
@@ -33,12 +62,30 @@ This project aims to provide a user-friendly interface for restaurant customers 
  ┗ 📄 requirements.txt   # Dependencies list
 ```
 
-## 🚀 Next Steps  
+##  Next Steps  
 - Implement an interactive UI for customer use  
 - Optimize allergen labeling for better readability  
-- Enhance visualization for improved data interpretation  
+- Enhance visualization for improved data interpretation 
+## Authors <a name="auteurs"></a>
+
+This project was developed by 4 students from the “Statistique pour l'Evaluation et la Prévision” (SEP) master's program at the University of Reims Champagne-Ardenne (class of 2024-2025). 
+
+The contributors to this project and their roles are identified below : 
+
+- Ismael Madou Gagi : Data Analyst/Governance
+- Mathéo Henault : Frontend/User Interface
+- Dimitri Delpech : Data Scientist
+- Perle Marie Salma Ndayizeye : Product Owner
+
+
 
 ## License <a name="licence"></a>
 
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://gitlab-mi.univ-reims.fr/mado0007/management_projet_digitaux/-/tree/main?ref_type=heads">Restaurant Menu & Allergen Information System</a> by <span property="cc:attributionName">Project contributors</span> is licensed under <a href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""></a></p>
+License summary :
+
+Attribution : You must credit the original author, provide a link to the license, and indicate whether any modifications have been made. You may do so reasonably, but not in such a way as to suggest that the author endorses you or your use.
+Non-commercial : You may not use the material for commercial purposes.
+
+
 
