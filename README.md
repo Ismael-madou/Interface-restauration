@@ -57,7 +57,8 @@ This project aims to provide a user-friendly interface for restaurant customers 
   Restaurant-Menu-Allergen
  ┣ 📚 data/             # Raw and processed dataset files
  ┣ 📚 scripts/          # Python scripts for data processing and visualization
- ┣ 📚 ui/               # User interface components (if applicable)
+ ┣ 📚 Tests/             # 
+ ┣ 📚 ui/               # User interface components
  ┣ 📄 README.md         # Project documentation
  ┗ 📄 requirements.txt   # Dependencies list
 ```
@@ -66,6 +67,12 @@ This project aims to provide a user-friendly interface for restaurant customers 
 - Implement an interactive UI for customer use  
 - Optimize allergen labeling for better readability  
 - Enhance visualization for improved data interpretation 
+## Source 📚
+
+The dataset describes the composition of the menus offered by the City of Antibes. It details the composition of the menus by listing the different dishes that make them up and indicates the descriptive elements relating to the origin of the dishes.  
+You can access the database via the link : https://www.data.gouv.fr/fr/datasets/menus-de-la-restauration-collective-de-la-ville-dantibes/
+
+
 ## Authors <a name="auteurs"></a>
 
 This project was developed by 4 students from the “Statistique pour l'Evaluation et la Prévision” (SEP) master's program at the University of Reims Champagne-Ardenne (class of 2024-2025). 
