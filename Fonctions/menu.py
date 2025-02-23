@@ -1,21 +1,17 @@
 import pandas as pd
 from validation import validate_snack, validate_product
-from recap import print_recap
-from Fonctions.allergies import filter_dishes_by_allergens
-import pandas as pd
+from recap import print_recap, chosen_products
+from allergies import filter_dishes_by_allergens
 from pathlib import Path
-import os
 
-# Chemin absolu du projet (remonte d'un niveau depuis le script)
-BASE_DIR = Path(os.getcwd()).parent  # Remonte d'un niveau depuis le dossier actuel
-print(BASE_DIR)
-
-# Définit le dossier "Databases" (suppose qu'il est à la racine du projet)
-DATABASE_DIR = BASE_DIR / "Databases"
+# Définir les chemins absolus
+BASE_DIR = Path(__file__).resolve().parent.parent
+MENU_FILE_PATH = BASE_DIR / 'data' / 'processed' / 'menu.xlsx'
+DISHES_FILE_PATH = BASE_DIR / 'data' / 'processed' / 'dishes.xlsx'
 
 # Chargement des fichiers Excel
-menu = pd.read_excel(DATABASE_DIR / "antibes-menu-2025.xlsx")
-dishes = pd.read_excel(DATABASE_DIR / "antibes-plats-2025.xlsx")
+menu_data = pd.read_excel(MENU_FILE_PATH)
+ingredients_data = pd.read_excel(DISHES_FILE_PATH)
 
 def ask_meal(allergens):
     meal_type = input("Do you want a snack or a meal ? (snack/meal): ").strip().lower()
@@ -29,7 +25,7 @@ def ask_meal(allergens):
 
 def propose_snack(allergens):
     dishType = "snack"
-    dishNames = menu_data[menu_data['menuRepasType'] == dishType]['menuPlatNom'].drop_duplicates().tolist()
+    dishNames = menu_data[menu_data['meal_type'] == dishType]['dish_name'].drop_duplicates().tolist()
     dishNames = filter_dishes_by_allergens(dishNames, allergens)
     print("Here are the options for a snack:")
     for dish in dishNames:
@@ -58,7 +54,7 @@ def ask_yes_no(question):
 
 def propose_starter(allergens):
     dishType = "entree"
-    dishNames = menu_data[menu_data['menuPlatType'] == dishType]['menuPlatNom'].drop_duplicates().tolist()
+    dishNames = menu_data[menu_data['dish_type'] == dishType]['dish_name'].drop_duplicates().tolist()
     dishNames = filter_dishes_by_allergens(dishNames, allergens)
     print("Here are the available entrees:")
     for dish in dishNames:
@@ -67,7 +63,7 @@ def propose_starter(allergens):
 
 def propose_dishe(allergens):
     dishType = "plat principal"
-    dishNames = menu_data[menu_data['menuPlatType'] == dishType]['menuPlatNom'].drop_duplicates().tolist()
+    dishNames = menu_data[menu_data['dish_type'] == dishType]['dish_name'].drop_duplicates().tolist()
     dishNames = filter_dishes_by_allergens(dishNames, allergens)
     print("Here are the available main courses:")
     for dish in dishNames:
@@ -76,7 +72,7 @@ def propose_dishe(allergens):
 
 def propose_side_dish(allergens):
     dishType = "garniture"
-    dishNames = menu_data[menu_data['menuPlatType'] == dishType]['menuPlatNom'].drop_duplicates().tolist()
+    dishNames = menu_data[menu_data['dish_type'] == dishType]['dish_name'].drop_duplicates().tolist()
     dishNames = filter_dishes_by_allergens(dishNames, allergens)
     print("Here are the available side dishes:")
     for dish in dishNames:
@@ -85,7 +81,7 @@ def propose_side_dish(allergens):
 
 def propose_dessert(allergens):
     dishType = "dessert"
-    dishNames = menu_data[menu_data['menuPlatType'] == dishType]['menuPlatNom'].drop_duplicates().tolist()
+    dishNames = menu_data[menu_data['dish_type'] == dishType]['dish_name'].drop_duplicates().tolist()
     dishNames = filter_dishes_by_allergens(dishNames, allergens)
     print("Here are the available desserts:")
     for dish in dishNames:
@@ -94,7 +90,7 @@ def propose_dessert(allergens):
 
 def propose_bread(allergens):
     dishType = "pain"
-    dishNames = menu_data[menu_data['menuPlatType'] == dishType]['menuPlatNom'].drop_duplicates().tolist()
+    dishNames = menu_data[menu_data['dish_type'] == dishType]['dish_name'].drop_duplicates().tolist()
     dishNames = filter_dishes_by_allergens(dishNames, allergens)
     print("Here are the available types of bread:")
     for dish in dishNames:
@@ -103,7 +99,7 @@ def propose_bread(allergens):
 
 def propose_other(allergens):
     dishType = "autre"
-    dishNames = menu_data[menu_data['menuPlatType'] == dishType]['menuPlatNom'].drop_duplicates().tolist()
+    dishNames = menu_data[menu_data['dish_type'] == dishType]['dish_name'].drop_duplicates().tolist()
     dishNames = filter_dishes_by_allergens(dishNames, allergens)
     print("Here are the available supplements:")
     for dish in dishNames:
