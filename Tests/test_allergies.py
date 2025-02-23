@@ -1,7 +1,12 @@
 import unittest
 from unittest.mock import patch, MagicMock
 import pandas as pd
+import sys
+import os
+# Ajouter le répertoire contenant 'allergies.py' au sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Fonctions')))
 from allergies import ask_allergies, get_allergens, filter_dishes_by_allergens
+
 
 class TestAllergiesFunctions(unittest.TestCase):
 

@@ -1,5 +1,8 @@
-import unittest
+ import unittest
 from unittest.mock import patch
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Fonctions')))
 from recap import print_recap, chosen_products
 
 class TestRecapFunctions(unittest.TestCase):

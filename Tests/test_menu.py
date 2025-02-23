@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import patch
-from menu import ask_meal, propose_snack, propose_menu, ask_yes_no
 from validation import validate_snack, validate_product
 from recap import chosen_products
+from Fonctions.menu import ask_meal, propose_snack, propose_menu, ask_yes_no
 
 class TestMenuFunctions(unittest.TestCase):
 

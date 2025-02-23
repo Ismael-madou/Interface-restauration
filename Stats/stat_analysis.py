@@ -5,15 +5,15 @@ import seaborn as sns
 from pathlib import Path
 import os
 
-# Défine file path
-BASE_DIR = Path(os.getcwd())  
-print(BASE_DIR)
-DATABASE_DIR = BASE_DIR / "Databases"  # excel file repository
+# Chemin absolu du projet (remonte d'un niveau depuis le script)
+BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Définit le dossier "Databases" (suppose qu'il est à la racine du projet)
+DATABASE_DIR = BASE_DIR / "Databases"
 
+# Chargement des fichiers Excel
 menu = pd.read_excel(DATABASE_DIR / "antibes-menu-2025.xlsx")
 dishes = pd.read_excel(DATABASE_DIR / "antibes-plats-2025.xlsx")
-
 ####DATA CLEANSE
 #menu dataset cleaning
 print(menu.head)
