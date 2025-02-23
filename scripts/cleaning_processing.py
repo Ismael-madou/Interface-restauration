@@ -5,11 +5,19 @@ import seaborn as sns
 from pathlib import Path
 import os
 
+<<<<<<< HEAD:Stats/stat_analysis.py
 # Chemin absolu du projet (remonte d'un niveau depuis le script)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Définit le dossier "Databases" (suppose qu'il est à la racine du projet)
 DATABASE_DIR = BASE_DIR / "Databases"
+=======
+# Défine file path
+BASE_DIR = Path(os.getcwd())  
+print(BASE_DIR)
+DATABASE_DIR = BASE_DIR / "data/raw"  # excel file repository
+PROCESSED_DIR = Path("data/processed")  # processed file repository
+>>>>>>> 5321d8db7e2ad7cbd5ce93b364cd3cac29452e59:scripts/cleaning_processing.py
 
 # Chargement des fichiers Excel
 menu = pd.read_excel(DATABASE_DIR / "antibes-menu-2025.xlsx")
@@ -97,27 +105,6 @@ new_names = {
 dishes.rename(columns=new_names, inplace=True)
 print(dishes.columns)
 
-# ##DESCRIPTIVE STATISTICS 
- 
-print(dishes["product_allergen"].unique())
-print(dishes['product_nutrient'].value_counts())
-
-dish_counts = dishes['dish_name'].value_counts()
-
-# barplot
-sns.barplot(x=dish_counts.index, y=dish_counts.values)
-plt.title('Dish frequency')
-plt.xlabel('Dish name')
-plt.ylabel('Number of occurrences')
-plt.show()
-
-allergen_dish_counts = dishes.groupby('product_allergen')['dish_name'].nunique()
-
-
-sns.barplot(x=allergen_dish_counts.index, y=allergen_dish_counts.values)
-plt.title('Number of dishes per allergen')
-plt.xlabel('Allergen')
-plt.ylabel('Number of unique dishes')
-plt.show()
-#correlation_matrix = dishes.corr()
-#print(correlation_matrix)
+##Export cleaned datasets 
+menu.to_csv(PROCESSED_DIR / "menu.csv", index=False)
+dishes.to_csv(PROCESSED_DIR / "dishes.csv", index=False)
