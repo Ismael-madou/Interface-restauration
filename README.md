@@ -55,12 +55,15 @@ This project aims to provide a user-friendly interface for restaurant customers 
 ##  Project Structure  
 ```
   Restaurant-Menu-Allergen
+ ┣ 📚 .ideas/             # Raw and processed dataset files
+ ┣ 📚 Fonctions/             # Raw and processed dataset files
+ ┣ 📚 Tests/             # Raw and processed dataset files
+ ┣ 📚 _pycache/             # Raw and processed dataset files
  ┣ 📚 data/             # Raw and processed dataset files
+ ┣ 📚 docs/             # Raw and processed dataset files
  ┣ 📚 scripts/          # Python scripts for data processing and visualization
- ┣ 📚 Tests/             # 
- ┣ 📚 ui/               # User interface components
  ┣ 📄 README.md         # Project documentation
- ┗ 📄 requirements.txt   # Dependencies list
+
 ```
 
 ##  Next Steps  
