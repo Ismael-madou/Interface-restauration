@@ -133,7 +133,11 @@ Non-commercial : You may not use the material for commercial purposes.
 
 ### Logigramme 
 
-![Logigramme](docs/Logigramme.png)
+![Logigramme](docs/logigramme.png)
+
+### Roadmap
+
+![Roadmap](docs/Road_map.png)
 
 
 

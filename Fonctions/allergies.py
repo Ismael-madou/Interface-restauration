@@ -9,7 +9,7 @@ MENU_FILE_PATH = BASE_DIR / 'data' / 'processed' / 'menu.xlsx'
 menu_data = pd.read_excel(MENU_FILE_PATH)
 
 def ask_allergies():
-    response = input("Do you have any allergies? (yes/no): ").strip().lower()
+    response = input("Welcome to our restaurant, \nWe will help you choose a dish from our menu \ndepending on your allergens and preferences \nDo you have any allergies? (yes/no): ").strip().lower()
     if response == "yes":
         return get_allergens()
     return []
