@@ -14,7 +14,7 @@ menu_data = pd.read_excel(MENU_FILE_PATH)
 ingredients_data = pd.read_excel(DISHES_FILE_PATH)
 
 def ask_meal(allergens):
-    meal_type = input("Do you want a snack or a meal ? (snack/meal): ").strip().lower()
+    meal_type = input(" Do you want a snack or a meal ? (snack/meal): ").strip().lower()
     if meal_type == "snack":
         propose_snack(allergens)
     elif meal_type == "meal":
