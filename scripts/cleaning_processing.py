@@ -1,25 +1,14 @@
 import pandas as pd
+
 import matplotlib.pyplot as plt
 import seaborn as sns
-
 from pathlib import Path
 import os
 
-<<<<<<< HEAD:Stats/stat_analysis.py
-# Chemin absolu du projet (remonte d'un niveau depuis le script)
-BASE_DIR = Path(__file__).resolve().parent.parent
+#define path
+BASE_DIR = Path(os.getcwd())
+DATABASE_DIR = BASE_DIR / "data/raw"
 
-# Définit le dossier "Databases" (suppose qu'il est à la racine du projet)
-DATABASE_DIR = BASE_DIR / "Databases"
-=======
-# Défine file path
-BASE_DIR = Path(os.getcwd())  
-print(BASE_DIR)
-DATABASE_DIR = BASE_DIR / "data/raw"  # excel file repository
-PROCESSED_DIR = Path("data/processed")  # processed file repository
->>>>>>> 5321d8db7e2ad7cbd5ce93b364cd3cac29452e59:scripts/cleaning_processing.py
-
-# Chargement des fichiers Excel
 menu = pd.read_excel(DATABASE_DIR / "antibes-menu-2025.xlsx")
 dishes = pd.read_excel(DATABASE_DIR / "antibes-plats-2025.xlsx")
 ####DATA CLEANSE
