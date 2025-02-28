@@ -1,107 +1,155 @@
+# menu.py
 import pandas as pd
-from validation import validate_snack, validate_product
-from recap import print_recap, chosen_products
-from allergies import filter_dishes_by_allergens
 from pathlib import Path
+from validation import validate_snack, validate_product
+from recap import print_recap
+from shared_data import chosen_products  # Import the shared list
+from allergies import filter_dishes_by_allergens
 
-# Définir les chemins absolus
+# Define absolute paths
 BASE_DIR = Path(__file__).resolve().parent.parent
 MENU_FILE_PATH = BASE_DIR / 'data' / 'processed' / 'menu.xlsx'
 DISHES_FILE_PATH = BASE_DIR / 'data' / 'processed' / 'dishes.xlsx'
 
-# Chargement des fichiers Excel
+# Load Excel files
 menu_data = pd.read_excel(MENU_FILE_PATH)
 ingredients_data = pd.read_excel(DISHES_FILE_PATH)
 
+
 def ask_meal(allergens):
-    meal_type = input(" Do you want a snack or a meal ? (snack/meal): ").strip().lower()
-    if meal_type == "snack":
-        propose_snack(allergens)
-    elif meal_type == "meal":
-        propose_menu(allergens)
-    else:
-        print("Invalid response. Please answer 'snack' or 'meal'.")
-        ask_meal(allergens)
+    """
+    Asks the user if they want a snack or a full meal.
+
+    Args:
+        allergens (list): List of allergens to avoid.
+    """
+    while True:
+        meal_type = input("Do you want a snack or a meal? (snack/meal): ").strip().lower()
+
+        if meal_type == "snack":
+            propose_snack(allergens)
+        elif meal_type == "meal":
+            propose_menu(allergens)
+        else:
+            print("\n⚠️ Invalid response. Please answer 'snack' or 'meal'.")
+
 
 def propose_snack(allergens):
+    """
+    Proposes snacks to the user based on allergens.
+
+    Args:
+        allergens (list): List of allergens to avoid.
+    """
     dishType = "snack"
-    dishNames = menu_data[menu_data['meal_type'] == dishType]['dish_name'].drop_duplicates().tolist()
-    dishNames = filter_dishes_by_allergens(dishNames, allergens)
-    print("Here are the options for a snack:")
-    for dish in dishNames:
-        print(f"- {dish}")
-    validate_snack(dishNames)
+
+    while True:
+
+        dishNames = menu_data[menu_data['meal_type'] == dishType]['dish_name'].drop_duplicates().tolist()
+        dishNames = filter_dishes_by_allergens(dishNames, allergens)
+
+        print("\nHere are the options for a snack:")
+        for i, dish in enumerate(dishNames, 1):
+            print(f"🥪 {i}. {dish}")
+        choix = input(
+            "\nChoose a product by entering its number, or type 'back' to choose again (snack/meal): ").strip().lower()
+        if choix == "back":
+            return ask_meal(allergens)
+        if choix.isdigit():
+            choix = int(choix)
+            if 1 <= choix <= len(dishNames):
+                print(f"\n✅ You have chosen: {dishNames[choix - 1]}")
+                chosen_products.append((choix, dishNames[choix - 1], dishType))  # Add choice to the list
+
+                another = input("Do you want to add another snack? (yes/no): ").strip().lower()
+                if another != "yes":
+                    return
+            else:
+                print("\n⚠️ Invalid choice. Please enter a valid number.")
+        else:
+            print("\n⚠️ Invalid input. Please enter a number or 'back'.")
+
+
+
+ICONS = {
+    "entree": "🥗",
+    "plat principal": "🍛",
+    "garniture": "🍚",
+    "dessert": "🍰",
+    "pain": "🍞",
+    "autre": "➕",
+}
+
 
 def propose_menu(allergens):
-    if ask_yes_no("Do you want a starter ?"):
-        propose_starter(allergens)
-    if ask_yes_no("Do you want a dishe?"):
-        propose_dishe(allergens)
-    if ask_yes_no("Do you want a side dish?"):
-        propose_side_dish(allergens)
-    if ask_yes_no("Do you want a dessert?"):
-        propose_dessert(allergens)
-    if ask_yes_no("Do you want bread?"):
-        propose_bread(allergens)
-    if ask_yes_no("Do you want a supplement?"):
-        propose_other(allergens)
-    print("We have taken your order into account.")
-    print_recap()
+    """
+    Proposes a full menu to the user based on allergens.
+
+    Args:
+        allergens (list): List of allergens to avoid.
+    """
+    if ask_yes_no("📌 1. Do you want a starter?"):
+        propose_category("entree", allergens, "🥗 Here are the available starters:")
+    if ask_yes_no("📌 2. Do you want a dish?"):
+        propose_category("plat principal", allergens, "🍛 Here are the available main courses:")
+    if ask_yes_no("📌 3. Do you want a side dish?"):
+        propose_category("garniture", allergens, "🍚 Here are the available side dishes:")
+    if ask_yes_no("📌 4. Do you want a dessert?"):
+        propose_category("dessert", allergens, "🍰 Here are the available desserts:")
+    if ask_yes_no("📌 5. Do you want bread?"):
+        propose_category("pain", allergens, "🍞 Here are the available types of bread:")
+    if ask_yes_no("📌 6. Do you want a supplement?"):
+        propose_category("autre", allergens, "➕ Here are the available supplements:")
+
+    print("\n✅ We have taken your order into account.")
+    print_recap(chosen_products)  # Pass the chosen_products list to print_recap
+
 
 def ask_yes_no(question):
+    """
+    Asks a yes/no question.
+
+    Args:
+        question (str): Question to ask.
+
+    Returns:
+        bool: True if the response is 'yes', False otherwise.
+    """
     response = input(f"{question} (yes/no): ").strip().lower()
     return response == "yes"
 
-def propose_starter(allergens):
-    dishType = "entree"
-    dishNames = menu_data[menu_data['dish_type'] == dishType]['dish_name'].drop_duplicates().tolist()
-    dishNames = filter_dishes_by_allergens(dishNames, allergens)
-    print("Here are the available entrees:")
-    for dish in dishNames:
-        print(f"- {dish}")
-    validate_product(dishNames)
 
-def propose_dishe(allergens):
-    dishType = "plat principal"
-    dishNames = menu_data[menu_data['dish_type'] == dishType]['dish_name'].drop_duplicates().tolist()
-    dishNames = filter_dishes_by_allergens(dishNames, allergens)
-    print("Here are the available main courses:")
-    for dish in dishNames:
-        print(f"- {dish}")
-    validate_product(dishNames)
+def propose_category(dishType, allergens, category_message):
+    """
+    Proposes dishes from a specific category and allows the user to add multiple items.
 
-def propose_side_dish(allergens):
-    dishType = "garniture"
-    dishNames = menu_data[menu_data['dish_type'] == dishType]['dish_name'].drop_duplicates().tolist()
-    dishNames = filter_dishes_by_allergens(dishNames, allergens)
-    print("Here are the available side dishes:")
-    for dish in dishNames:
-        print(f"- {dish}")
-    validate_product(dishNames)
+    Args:
+        dishType (str): Type of dish (e.g., "entree", "plat principal").
+        allergens (list): List of allergens to avoid.
+        category_message (str): Message to display for the category.
+    """
+    while True:
 
-def propose_dessert(allergens):
-    dishType = "dessert"
-    dishNames = menu_data[menu_data['dish_type'] == dishType]['dish_name'].drop_duplicates().tolist()
-    dishNames = filter_dishes_by_allergens(dishNames, allergens)
-    print("Here are the available desserts:")
-    for dish in dishNames:
-        print(f"- {dish}")
-    validate_product(dishNames)
+        dishNames = menu_data[menu_data['dish_type'] == dishType]['dish_name'].drop_duplicates().tolist()
+        dishNames = filter_dishes_by_allergens(dishNames, allergens)
 
-def propose_bread(allergens):
-    dishType = "pain"
-    dishNames = menu_data[menu_data['dish_type'] == dishType]['dish_name'].drop_duplicates().tolist()
-    dishNames = filter_dishes_by_allergens(dishNames, allergens)
-    print("Here are the available types of bread:")
-    for dish in dishNames:
-        print(f"- {dish}")
-    validate_product(dishNames)
+        print(f"\n{category_message}")
+        for i, dish in enumerate(dishNames, 1):
+            print(f"{i}. {dish}")
+        choice = input("\nChoose a product by entering its number, or type 'back' to return: ").strip().lower()
+        if choice == "back":
+            return
 
-def propose_other(allergens):
-    dishType = "autre"
-    dishNames = menu_data[menu_data['dish_type'] == dishType]['dish_name'].drop_duplicates().tolist()
-    dishNames = filter_dishes_by_allergens(dishNames, allergens)
-    print("Here are the available supplements:")
-    for dish in dishNames:
-        print(f"- {dish}")
-    validate_product(dishNames)
+        if choice.isdigit():
+            choice = int(choice)
+            if 1 <= choice <= len(dishNames):
+                print(f"\n✅ You have chosen: {dishNames[choice - 1]}")
+                chosen_products.append((choice, dishNames[choice - 1], dishType))
+
+                another = input("Do you want to add another item from this category? (yes/no): ").strip().lower()
+                if another != "yes":
+                    return  # Exit after a valid choice
+            else:
+                print("\n⚠️ Invalid choice. Please enter a valid number.")
+        else:
+            print("\n⚠️ Invalid input. Please enter a number or 'back'.")

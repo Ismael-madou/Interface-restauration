@@ -1,6 +1,23 @@
-chosen_products = []
 
-def print_recap():
-    print("Here is a summary of your order:")
+ICONS = {
+    "entree": "🥗",
+    "plat principal": "🍛",
+    "garniture": "🍚",
+    "dessert": "🍰",
+    "pain": "🍞",
+    "autre": "➕",
+}
+
+
+def print_recap(chosen_products):
+    """
+    Displays a summary of the order with corresponding icons.
+
+    Args:
+        chosen_products (list): List of chosen products.
+    """
+    print("\nHere is a summary of your order:")
     for product in chosen_products:
-        print(f"- {product}")
+        choice, chosen_dish, dishType = product
+        icon = ICONS.get(dishType, "❓")
+        print(f"{icon} {choice}. {chosen_dish}")
