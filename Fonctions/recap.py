@@ -1,4 +1,4 @@
-
+# recap.py
 ICONS = {
     "entree": "🥗",
     "plat principal": "🍛",
@@ -7,7 +7,6 @@ ICONS = {
     "pain": "🍞",
     "autre": "➕",
 }
-
 
 def print_recap(chosen_products):
     """
