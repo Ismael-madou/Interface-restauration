@@ -6,11 +6,11 @@ from pathlib import Path
 import os
 
 #define path
-BASE_DIR = Path(os.getcwd())
-DATABASE_DIR = BASE_DIR / "data/raw"
+base_dir = Path(os.getcwd())
+database_dir = base_dir / "data/raw"
 
-menu = pd.read_excel(DATABASE_DIR / "antibes-menu-2025.xlsx")
-dishes = pd.read_excel(DATABASE_DIR / "antibes-plats-2025.xlsx")
+menu = pd.read_excel(database_dir/ "antibes-menu-2025.xlsx")
+dishes = pd.read_excel(database_dir / "antibes-plats-2025.xlsx")
 ####DATA CLEANSE
 #menu dataset cleaning
 print(menu.head)
@@ -80,6 +80,7 @@ dishes["platProduitAllergene"].fillna("Aucun", inplace=True)
 print(dishes["platProduitAllergene"].unique())
 dishes["platProduitDescription"].fillna("Non renseigné", inplace=True)
 
+
  #Dictionary to map old column names to new column 
 new_names = {
     "platCode": "dish_code",
@@ -93,7 +94,8 @@ new_names = {
 # Rename
 dishes.rename(columns=new_names, inplace=True)
 print(dishes.columns)
-
+print(dishes.product_description)
+print(dishes.product_nutrient)
 ##Export cleaned datasets 
-menu.to_csv(PROCESSED_DIR / "menu.csv", index=False)
-dishes.to_csv(PROCESSED_DIR / "dishes.csv", index=False)
+menu.to_csv(processed_dir / "menu.csv", index=False)
+dishes.to_csv(processed_dir / "dishes.csv", index=False)
