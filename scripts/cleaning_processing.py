@@ -8,7 +8,7 @@ import os
 #define path
 base_dir = Path(os.getcwd())
 database_dir = base_dir / "data/raw"
-
+processed_dir = base_dir / "data/processed"
 menu = pd.read_excel(database_dir/ "antibes-menu-2025.xlsx")
 dishes = pd.read_excel(database_dir / "antibes-plats-2025.xlsx")
 ####DATA CLEANSE
@@ -97,5 +97,5 @@ print(dishes.columns)
 print(dishes.product_description)
 print(dishes.product_nutrient)
 ##Export cleaned datasets 
-menu.to_csv(processed_dir / "menu.csv", index=False)
-dishes.to_csv(processed_dir / "dishes.csv", index=False)
+menu.to_csv(/ "menu.csv", index=False)
+dishes.to_csv(PROCESSED_DIR / "dishes.csv", index=False)
