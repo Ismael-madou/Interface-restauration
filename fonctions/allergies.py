@@ -1,14 +1,12 @@
-# allergies.py
 import pandas as pd
 from pathlib import Path
-import streamlit as st
 
-# Define base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 MENU_FILE_PATH = BASE_DIR / 'data' / 'processed' / 'menu.xlsx'
 
-# Load Excel file
+# Load Excel files
 menu_data = pd.read_excel(MENU_FILE_PATH)
+
 
 def ask_allergies():
     """
@@ -17,15 +15,17 @@ def ask_allergies():
     Returns:
         list: List of allergens to avoid.
     """
-    response = st.radio(
-        "Do you have any allergies?",
-        options=["Yes", "No"],
-        index=1,
-    )
+    response = input(
+        "Welcome to our restaurant, \n"
+        "We will help you choose a dish from our menu \n"
+        "depending on your allergens and preferences \n"
+        "Do you have any allergies? (yes/no): "
+    ).strip().lower()
 
-    if response == "Yes":
+    if response == "yes":
         return get_allergens()
     return []
+
 
 def get_allergens():
     """
@@ -36,16 +36,36 @@ def get_allergens():
     """
     allergens = set()
 
-    # Extract allergens from the menu data
+
     for allergen_list in menu_data['dish_allergen'].dropna():
         allergens.update(allergen.strip() for allergen in allergen_list.split(','))
 
     allergens = sorted(list(allergens))
 
-    st.write("Here are the allergens present in our dishes:")
-    selected_allergens = st.multiselect("Select allergens to avoid:", allergens)
 
-    return selected_allergens
+    print("\nHere are the allergens present in our dishes:")
+    for i, allergen in enumerate(allergens, 1):
+        print(f"⚠️ {i}. {allergen}")
+
+
+    while True:
+        choix = input("\nPlease enter the numbers of the allergens you are allergic to (separated by commas): ").strip()
+
+        try:
+
+            num_allergens = [int(num.strip()) for num in choix.split(",") if num.strip().isdigit()]
+
+            selected_allergens = [allergens[i - 1].lower() for i in num_allergens if 1 <= i <= len(allergens)]
+
+            if selected_allergens:
+                print("\nYou have indicated that you avoid:", ", ".join(selected_allergens))
+                return selected_allergens
+            else:
+                print("\nInvalid selection. Please enter valid numbers from the list.")
+
+        except ValueError:
+            print("\nInvalid input. Please enter only numbers separated by commas.")
+
 
 def filter_dishes_by_allergens(dishes, allergens):
     """
@@ -68,7 +88,7 @@ def filter_dishes_by_allergens(dishes, allergens):
 
         dish_allergens = [allergen.strip().lower() for allergen in dish_allergens.split(',')]
 
-        # Check if the dish contains any allergens to avoid
+
         if not any(allergen in dish_allergens for allergen in allergens):
             filtered_dishes.append(dish)
 
