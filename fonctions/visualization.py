@@ -1,38 +1,28 @@
-# install : pip install matplotlib seaborn before running the program
+# visualization.py
 import matplotlib.pyplot as plt
-import seaborn as sns
-from collections import Counter
-from shared_data import chosen_products
+import matplotlib.image as mpimg
 
-def plot_most_ordered_dishes():
+def display_graph_image(image_path):
     """
-    Generates a bar chart of the most ordered dishes based on the user's choices.
+    Displays a graph image in a graphical window.
 
-    This function uses the `chosen_products` list to count the frequency of each dish
-    and displays a bar chart showing the most popular dishes.
+    Args:
+        image_path (str): The path to the graph image file to display.
     """
-    if not chosen_products:
-        print("No data available to generate the chart.")
-        return
+    try:
+        # Load the image
+        img = mpimg.imread(image_path)
 
+        # Display the image
+        plt.figure(figsize=(10, 6))
+        plt.imshow(img)
+        plt.axis('off')  # Hide the axes
+        plt.title("Most Ordered Dishes")
+        plt.tight_layout()
 
-    dishes = [product[1] for product in chosen_products]
-
-
-    dish_counts = Counter(dishes)
-
-    sorted_dishes = sorted(dish_counts.items(), key=lambda x: x[1], reverse=True)
-
-    dish_names = [dish[0] for dish in sorted_dishes]
-    dish_frequencies = [dish[1] for dish in sorted_dishes]
-
-    plt.switch_backend('TkAgg')
-
-    plt.figure(figsize=(10, 6))
-    sns.barplot(x=dish_frequencies, y=dish_names, palette="viridis")
-    plt.title("Most Ordered Dishes")
-    plt.xlabel("Number of Orders")
-    plt.ylabel("Dishes")
-    plt.tight_layout()
-
-    plt.show(block=True)
+        # Show the graphical window
+        plt.show(block=True)
+    except FileNotFoundError:
+        print(f"⚠️ Error: The image file '{image_path}' was not found.")
+    except Exception as e:
+        print(f"⚠️ An error occurred while displaying the image: {e}")

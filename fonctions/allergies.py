@@ -1,3 +1,4 @@
+# allergies.py
 import pandas as pd
 from pathlib import Path
 
@@ -36,23 +37,19 @@ def get_allergens():
     """
     allergens = set()
 
-
     for allergen_list in menu_data['dish_allergen'].dropna():
         allergens.update(allergen.strip() for allergen in allergen_list.split(','))
 
     allergens = sorted(list(allergens))
 
-
     print("\nHere are the allergens present in our dishes:")
     for i, allergen in enumerate(allergens, 1):
         print(f"⚠️ {i}. {allergen}")
-
 
     while True:
         choix = input("\nPlease enter the numbers of the allergens you are allergic to (separated by commas): ").strip()
 
         try:
-
             num_allergens = [int(num.strip()) for num in choix.split(",") if num.strip().isdigit()]
 
             selected_allergens = [allergens[i - 1].lower() for i in num_allergens if 1 <= i <= len(allergens)]
@@ -87,7 +84,6 @@ def filter_dishes_by_allergens(dishes, allergens):
             dish_allergens = ""
 
         dish_allergens = [allergen.strip().lower() for allergen in dish_allergens.split(',')]
-
 
         if not any(allergen in dish_allergens for allergen in allergens):
             filtered_dishes.append(dish)

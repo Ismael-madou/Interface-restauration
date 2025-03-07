@@ -28,6 +28,7 @@ def ask_meal(allergens):
 
         if meal_type == "snack":
             propose_snack(allergens)
+            propose_menu(allergens)  # Propose meal immediately after snack
         elif meal_type == "meal":
             propose_menu(allergens)
         else:
@@ -44,7 +45,6 @@ def propose_snack(allergens):
     dishType = "snack"
 
     while True:
-
         dishNames = menu_data[menu_data['meal_type'] == dishType]['dish_name'].drop_duplicates().tolist()
         dishNames = filter_dishes_by_allergens(dishNames, allergens)
 
@@ -68,7 +68,6 @@ def propose_snack(allergens):
                 print("\n⚠️ Invalid choice. Please enter a valid number.")
         else:
             print("\n⚠️ Invalid input. Please enter a number or 'back'.")
-
 
 
 ICONS = {
@@ -129,7 +128,6 @@ def propose_category(dishType, allergens, category_message):
         category_message (str): Message to display for the category.
     """
     while True:
-
         dishNames = menu_data[menu_data['dish_type'] == dishType]['dish_name'].drop_duplicates().tolist()
         dishNames = filter_dishes_by_allergens(dishNames, allergens)
 
