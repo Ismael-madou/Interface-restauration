@@ -8,8 +8,8 @@ from allergies import filter_dishes_by_allergens
 
 # Define absolute paths
 BASE_DIR = Path(__file__).resolve().parent.parent
-MENU_FILE_PATH = BASE_DIR / 'data' / 'processed' / 'menu.xlsx'
-DISHES_FILE_PATH = BASE_DIR / 'data' / 'processed' / 'dishes.xlsx'
+MENU_FILE_PATH = BASE_DIR / 'data' / 'menu.xlsx'
+DISHES_FILE_PATH = BASE_DIR / 'data' / 'dishes.xlsx'
 
 # Load Excel files
 menu_data = pd.read_excel(MENU_FILE_PATH)

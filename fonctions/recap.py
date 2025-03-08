@@ -10,7 +10,11 @@ ICONS = {
     "autre": "➕",
 }
 
-welcome_message = "\nWelcome to our restaurant, \nWe will help you choose a dish from our menu \ndepending on your allergens and preferences"
+welcome_message = (
+    "Welcome to our restaurant, \n"
+    "We will help you choose a dish from our menu \n"
+    "depending on your allergens and preferences"
+)
 
 def print_recap(chosen_products):
     """
