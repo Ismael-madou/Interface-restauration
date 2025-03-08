@@ -1,6 +1,7 @@
 # allergies.py
 import pandas as pd
 from pathlib import Path
+from recap import welcome_message
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 MENU_FILE_PATH = BASE_DIR / 'data' / 'processed' / 'menu.xlsx'
@@ -16,12 +17,7 @@ def ask_allergies():
     Returns:
         list: List of allergens to avoid.
     """
-    response = input(
-        "Welcome to our restaurant, \n"
-        "We will help you choose a dish from our menu \n"
-        "depending on your allergens and preferences \n"
-        "Do you have any allergies? (yes/no): "
-    ).strip().lower()
+    response = input("\nDo you have any allergies? (yes/no): ").strip().lower()
 
     if response == "yes":
         return get_allergens()

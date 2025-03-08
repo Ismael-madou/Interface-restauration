@@ -1,6 +1,7 @@
+import sys
+
 # recap.py
 ICONS = {
-    "snack": "🥪",
     "entree": "🥗",
     "plat principal": "🍛",
     "garniture": "🍚",
@@ -9,6 +10,7 @@ ICONS = {
     "autre": "➕",
 }
 
+welcome_message = "\nWelcome to our restaurant, \nWe will help you choose a dish from our menu \ndepending on your allergens and preferences"
 
 def print_recap(chosen_products):
     """
@@ -29,6 +31,9 @@ def print_recap(chosen_products):
         if response == "continue":
             return True
         elif response == "exit":
-            return False
+            print("\nThank you for choosing our restaurant! We hope you enjoy your meal. 😊")
+            input("Press Enter to exit...")
+            sys.exit()
+
         else:
             print("⚠️ Invalid response. Please enter 'continue' or 'exit'.")
