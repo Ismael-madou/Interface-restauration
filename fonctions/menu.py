@@ -125,8 +125,12 @@ def ask_yes_no(question):
     Returns:
         bool: True if the response is 'yes', False otherwise.
     """
-    response = input(f"{question} (yes/no): ").strip().lower()
-    return response == "yes"
+    while True:
+            response = input(f"{question} (yes/no): ").strip().lower()
+            if response in ["yes", "no"]:
+                return response == "yes"
+            print("⚠️ Invalid response. Please enter 'yes' or 'no'.")
+
 
 
 def propose_category(dishType, allergens, category_message):
