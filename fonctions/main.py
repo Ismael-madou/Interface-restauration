@@ -2,9 +2,9 @@
 from menu import ask_meal
 from allergies import ask_allergies
 from recap import welcome_message, print_recap  # Import the print_recap function
-from visualization import display_graph_image  # Import the visualization function
+from fonctions.visualization import display_graph_image  # Import the visualization function
 from shared_data import chosen_products  # Import the shared list
-
+from pathlib import Path
 print(welcome_message)
 
 if __name__ == "__main__":
@@ -23,5 +23,5 @@ if __name__ == "__main__":
             continue  # Restart the process
 
         # Display the graph image
-        graph_image_path = "most_ordered_dishes.png"
+        graph_image_path = Path("docs/dish_occurrences.png")
         display_graph_image(graph_image_path)
