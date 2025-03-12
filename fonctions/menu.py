@@ -60,14 +60,23 @@ def propose_snack(allergens):
                 print(f"\n✅ You have chosen: {chosen_dish}")
 
                 # Ask if the user wants to see the ingredients
+<<<<<<< HEAD
                 see_ingredients = input("Do you want to see the ingredients of this product ? (yes/no): ").strip().lower()
                 if see_ingredients == "yes":
                     ingredients = sorted(set(ingredients_data[ingredients_data['dish_name'] == chosen_dish]['product_name'].tolist()))
         
+=======
+                see_ingredients = input(
+                    "Do you want to see the ingredients of this product? (yes/no): ").strip().lower()
+                if see_ingredients == "yes":
+                    ingredients = sorted(
+                        set(ingredients_data[ingredients_data['dish_name'] == chosen_dish]['product_name'].tolist()))
+
+>>>>>>> 3e6fda04ba4781d82fb0945782c449afabd29f75
                     if ingredients:
                         print(f"\nIngredients of {chosen_dish}:")
-                        for ingredient in ingredients:
-                            print(f"- {ingredient}")
+                        for j, ingredient in enumerate(ingredients, 1):  # Numéroter les ingrédients
+                            print(f"{j}. {ingredient}")
 
                     else:
                         print(f"\nNo ingredients found for {chosen_dish}.")
@@ -90,6 +99,10 @@ def propose_snack(allergens):
             print("\n⚠️ Invalid input. Please enter a number or 'back'.")
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3e6fda04ba4781d82fb0945782c449afabd29f75
 def propose_menu(allergens):
     """
     Proposes a full menu to the user based on allergens.
@@ -132,7 +145,6 @@ def ask_yes_no(question):
             print("⚠️ Invalid response. Please enter 'yes' or 'no'.")
 
 
-
 def propose_category(dishType, allergens, category_message):
     """
     Proposes dishes from a specific category and allows the user to add multiple items.
@@ -162,12 +174,18 @@ def propose_category(dishType, allergens, category_message):
                 # Ask if the user wants to see the ingredients
                 see_ingredients = input("Do you want to see the ingredients of this dish? (yes/no): ").strip().lower()
                 if see_ingredients == "yes":
+<<<<<<< HEAD
                     ingredients = sorted(set(ingredients_data[ingredients_data['dish_name'] == chosen_dish]['product_name'].tolist()))
         
+=======
+                    ingredients = sorted(
+                        set(ingredients_data[ingredients_data['dish_name'] == chosen_dish]['product_name'].tolist()))
+
+>>>>>>> 3e6fda04ba4781d82fb0945782c449afabd29f75
                     if ingredients:
                         print(f"\nIngredients of {chosen_dish}:")
-                        for ingredient in ingredients:
-                            print(f"- {ingredient}")
+                        for j, ingredient in enumerate(ingredients, 1):  # Numéroter les ingrédients
+                            print(f"{j}. {ingredient}")
 
                     else:
                         print(f"\nNo ingredients found for {chosen_dish}.")
