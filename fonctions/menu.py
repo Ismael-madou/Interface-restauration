@@ -32,6 +32,7 @@ def ask_meal(allergens):
         else:
             print("\n⚠️ Invalid response. Please answer 'snack' or 'meal'.")
 
+
 def propose_snack(allergens):
     """
     Proposes snacks to the user based on allergens.
@@ -59,27 +60,29 @@ def propose_snack(allergens):
                 print(f"\n✅ You have chosen: {chosen_dish}")
 
                 # Ask if the user wants to see the ingredients
-                see_ingredients = ask_yes_no("Do you want to see the ingredients of this product?")
-                if see_ingredients:
-                    ingredients = sorted(set(ingredients_data[ingredients_data['dish_name'] == chosen_dish]['product_name'].tolist()))
-        
+                see_ingredients = input(
+                    "Do you want to see the ingredients of this product? (yes/no): ").strip().lower()
+                if see_ingredients == "yes":
+                    ingredients = sorted(
+                        set(ingredients_data[ingredients_data['dish_name'] == chosen_dish]['product_name'].tolist()))
+
                     if ingredients:
                         print(f"\nIngredients of {chosen_dish}:")
-                        for ingredient in ingredients:
-                            print(f"- {ingredient}")
+                        for j, ingredient in enumerate(ingredients, 1):  # Numéroter les ingrédients
+                            print(f"{j}. {ingredient}")
 
                     else:
                         print(f"\nNo ingredients found for {chosen_dish}.")
 
                     # Ask if the user wants to validate the choice
-                    validate_choice = ask_yes_no("Do you want to validate this choice?")
-                    if validate_choice:
+                    validate_choice = input("Do you want to validate this choice? (yes/no): ").strip().lower()
+                    if validate_choice == "yes":
                         chosen_products.append((choice, chosen_dish, dishType))
                 else:
                     chosen_products.append((choice, chosen_dish, dishType))
 
-                another = ask_yes_no("Do you want to add another snack?")
-                if not another:
+                another = input("Do you want to add another snack? (yes/no): ").strip().lower()
+                if another != "yes":
                     print("\n✅ We have taken your order into account.")
                     print_recap(chosen_products)  # Pass the chosen_products list to print_recap
                     return
@@ -87,6 +90,8 @@ def propose_snack(allergens):
                 print("\n⚠️ Invalid choice. Please enter a valid number.")
         else:
             print("\n⚠️ Invalid input. Please enter a number or 'back'.")
+
+
 
 def propose_menu(allergens):
     """
@@ -173,7 +178,6 @@ def stop():
         print("⚠️ Invalid response. Please enter 'yes' or 'no'.")
 
 
-
 def propose_category(dishType, allergens, category_message):
     """
     Proposes dishes from a specific category and allows the user to add multiple items.
@@ -201,27 +205,28 @@ def propose_category(dishType, allergens, category_message):
                 print(f"\n✅ You have chosen: {chosen_dish}")
 
                 # Ask if the user wants to see the ingredients
-                see_ingredients = ask_yes_no("Do you want to see the ingredients of this product ?")
-                if see_ingredients:
-                    ingredients = sorted(set(ingredients_data[ingredients_data['dish_name'] == chosen_dish]['product_name'].tolist()))
-        
+                see_ingredients = input("Do you want to see the ingredients of this dish? (yes/no): ").strip().lower()
+                if see_ingredients == "yes":
+                    ingredients = sorted(
+                        set(ingredients_data[ingredients_data['dish_name'] == chosen_dish]['product_name'].tolist()))
+
                     if ingredients:
                         print(f"\nIngredients of {chosen_dish}:")
-                        for ingredient in ingredients:
-                            print(f"- {ingredient}")
+                        for j, ingredient in enumerate(ingredients, 1):  # Numéroter les ingrédients
+                            print(f"{j}. {ingredient}")
 
                     else:
                         print(f"\nNo ingredients found for {chosen_dish}.")
 
                     # Ask if the user wants to validate the choice
-                    validate_choice = ask_yes_no("Do you want to validate this choice?")
-                    if validate_choice:
+                    validate_choice = input("Do you want to validate this choice? (yes/no): ").strip().lower()
+                    if validate_choice == "yes":
                         chosen_products.append((choice, chosen_dish, dishType))
                 else:
                     chosen_products.append((choice, chosen_dish, dishType))
 
-                another = ask_yes_no("Do you want to add another product from this category?")
-                if not another:
+                another = input("Do you want to add another product from this category? (yes/no): ").strip().lower()
+                if another != "yes":
                     return  # Exit after a valid choice
             else:
                 print("\n⚠️ Invalid choice. Please enter a valid number.")
