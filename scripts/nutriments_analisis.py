@@ -6,15 +6,12 @@ matplotlib.use("TkAgg")  # Ouvrir une fenêtre indépendante
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# 📂 Charger les fichiers Excel
-dishes_path = "C:/COUR/manage/management_projet_digitaux/dishes.xlsx"  # Remplace par ton chemin
-menu_path = "C:/COUR/manage/management_projet_digitaux/menu.xlsx"  # Remplace par ton chemin
 
-dishes = pd.read_excel(dishes_path)
-menu = pd.read_excel(menu_path)
-
+dishes= pd.read_csv('data/processed/dishes.xlsx') 
+menu= pd.read_csv('data/processed/menu.xlsx') 
 # 🔍 Vérifier le nom de la colonne nutriments
-nutriment_col = "platProduitNutriment" if "platProduitNutriment" in dishes.columns else "product_nutriment"
+print(dishes.columns)
+nutriment_col = "platProduitNutriment" if "platProduitNutriment" in dishes.columns else "product_nutrient"
 
 # 🛠 Fonction pour extraire les nutriments
 def extract_nutrient(nutriment_str, nutrient_name):

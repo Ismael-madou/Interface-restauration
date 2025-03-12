@@ -3,11 +3,9 @@ import pandas as pd
 from pathlib import Path
 from recap import welcome_message
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-MENU_FILE_PATH = BASE_DIR / 'data' / 'menu.xlsx'
 
 # Load Excel files
-menu_data = pd.read_excel(MENU_FILE_PATH)
+menu_data = pd.read_csv('data/processed/dishes.xlsx')
 
 
 def ask_allergies():

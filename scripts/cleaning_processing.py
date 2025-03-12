@@ -97,5 +97,5 @@ print(dishes.columns)
 print(dishes.product_description)
 print(dishes.product_nutrient)
 ##Export cleaned datasets 
-menu.to_csv(processed_dir/ "menu.csv", index=False)
-dishes.to_csv(processed_dir/ "dishes.csv", index=False)
+menu.to_csv(processed_dir/ "menu.xlsx", index=False)
+dishes.to_csv(processed_dir/ "dishes.xlsx", index=False)

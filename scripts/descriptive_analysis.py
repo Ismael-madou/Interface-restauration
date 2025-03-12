@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-dishes= pd.read_csv('data/processed/dishes.csv') 
-menu= pd.read_csv('data/processed/menu.csv') 
+dishes= pd.read_csv('data/processed/dishes.xlsx') 
+menu= pd.read_csv('data/processed/menu.xlsx') 
 print(dishes["product_allergen"].unique())
 print(dishes['product_nutrient'].value_counts())
 
@@ -79,5 +79,3 @@ pd.crosstab(menu["meal_type"], menu["dish_type"])
 menu.groupby("menurestaurant_type")["dish_name"].count()
 menu.groupby("menurestaurant_type")["dish_type"].nunique()
 menu.groupby("meal_type")["dish_type"].value_counts()
-
-print(menu["menuPlatNom"].value_counts(normalize=True) * 100)
