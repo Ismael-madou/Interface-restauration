@@ -5,6 +5,7 @@ from recap import welcome_message, print_recap  # Import the print_recap functio
 from fonctions.visualization import display_graph_image  # Import the visualization function
 from shared_data import chosen_products  # Import the shared list
 from pathlib import Path
+
 print(welcome_message)
 
 if __name__ == "__main__":

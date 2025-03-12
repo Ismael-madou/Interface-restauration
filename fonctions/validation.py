@@ -19,7 +19,6 @@ def validate_snack(products):
     else:
         print_recap(chosen_products)  # Display the order summary
 
-
 def validate_product(products):
     """
     Validates the user's choice of a product.

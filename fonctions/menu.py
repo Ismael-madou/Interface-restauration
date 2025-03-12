@@ -1,15 +1,17 @@
-import sys  # Import the sys module for sys.exit()
+# menu.py
+import sys
 import pandas as pd
 from pathlib import Path
 from validation import validate_snack, validate_product
 from recap import print_recap, ICONS
-from shared_data import chosen_products  # Import the shared list
+from shared_data import chosen_products
 from allergies import filter_dishes_by_allergens, ask_allergies
+
 
 # Define absolute paths
 BASE_DIR = Path(__file__).resolve().parent.parent
-MENU_FILE_PATH = BASE_DIR / 'data' / 'menu.xlsx'
-DISHES_FILE_PATH = BASE_DIR / 'data' / 'dishes.xlsx'
+MENU_FILE_PATH = BASE_DIR / 'data' / 'processed' / 'menu.xlsx'
+DISHES_FILE_PATH = BASE_DIR / 'data' / 'processed' / 'dishes.xlsx'
 
 # Load Excel files
 menu_data = pd.read_excel(MENU_FILE_PATH)
@@ -31,7 +33,6 @@ def ask_meal(allergens):
             propose_menu(allergens)
         else:
             print("\n⚠️ Invalid response. Please answer 'snack' or 'meal'.")
-
 
 def propose_snack(allergens):
     """
@@ -90,8 +91,6 @@ def propose_snack(allergens):
                 print("\n⚠️ Invalid choice. Please enter a valid number.")
         else:
             print("\n⚠️ Invalid input. Please enter a number or 'back'.")
-
-
 
 def propose_menu(allergens):
     """
@@ -166,7 +165,6 @@ def stop():
             icon = ICONS.get(dishType, "❓")
             print(f"{icon} {dishType.capitalize()}: {chosen_dish}")
 
-
         print("\nThank you for choosing our restaurant! We hope you enjoy your meal. 😊")
         input("Press Enter to exit...")
         sys.exit()
@@ -176,7 +174,6 @@ def stop():
         sys.exit()
     else:
         print("⚠️ Invalid response. Please enter 'yes' or 'no'.")
-
 
 def propose_category(dishType, allergens, category_message):
     """
