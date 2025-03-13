@@ -1,11 +1,24 @@
-import sys  # Import the sys module for sys.exit()
+# menu.py
+import sys
 import pandas as pd
 from pathlib import Path
 from validation import validate_snack, validate_product
+<<<<<<< HEAD
 from recap import print_recap
 from shared_data import chosen_products  # Import the shared list
 from allergies import filter_dishes_by_allergens
 
+=======
+from recap import print_recap, ICONS
+from shared_data import chosen_products
+from allergies import filter_dishes_by_allergens, ask_allergies
+
+
+# Define absolute paths
+BASE_DIR = Path(__file__).resolve().parent.parent
+MENU_FILE_PATH = BASE_DIR / 'data' / 'processed' / 'menu.xlsx'
+DISHES_FILE_PATH = BASE_DIR / 'data' / 'processed' / 'dishes.xlsx'
+>>>>>>> 6e699fb9bf9e0b398ee650cbae9afee42031c237
 
 # Load Excel files
 menu_data = pd.read_excel('data/processed/menu.xlsx')
@@ -27,7 +40,6 @@ def ask_meal(allergens):
             propose_menu(allergens)
         else:
             print("\n⚠️ Invalid response. Please answer 'snack' or 'meal'.")
-
 
 def propose_snack(allergens):
     """
@@ -94,11 +106,14 @@ def propose_snack(allergens):
         else:
             print("\n⚠️ Invalid input. Please enter a number or 'back'.")
 
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 =======
 
 >>>>>>> 3e6fda04ba4781d82fb0945782c449afabd29f75
+=======
+>>>>>>> 6e699fb9bf9e0b398ee650cbae9afee42031c237
 def propose_menu(allergens):
     """
     Proposes a full menu to the user based on allergens.
@@ -135,11 +150,60 @@ def ask_yes_no(question):
         bool: True if the response is 'yes', False otherwise.
     """
     while True:
+<<<<<<< HEAD
             response = input(f"{question} (yes/no): ").strip().lower()
             if response in ["yes", "no"]:
                 return response == "yes"
             print("⚠️ Invalid response. Please enter 'yes' or 'no'.")
+=======
+        response = input(f"{question} (yes/no): ").strip().lower()
+        if response in ["yes", "no"]:
+            return response == "yes"
+        print("⚠️ Invalid response. Please enter 'yes' or 'no'.")
 
+def ask_yes_no_stop(question):
+    """
+    Asks a yes/no/stop question.
+
+    Args:
+        question (str): Question to ask.
+
+    Returns:
+        str: 'yes', 'no', or 'stop' based on the user's response.
+    """
+    while True:
+        response = input(f"{question} (yes/no/stop): ").strip().lower()
+        if response == "yes":
+            return "yes"
+        elif response == "no":
+            return "no"
+        elif response == "stop":
+            stop()
+        else:
+            print("⚠️ Invalid response. Please enter 'yes', 'no', or 'stop'.")
+
+def stop():
+    """
+    Stops the program.
+    """
+    save_or_no = input("Do you want to save your order ? (yes/no): ").strip().lower()
+    if save_or_no == "yes":
+        print("\nHere is a summary of your order:")
+        for product in chosen_products:
+            choice, chosen_dish, dishType = product
+            icon = ICONS.get(dishType, "❓")
+            print(f"{icon} {dishType.capitalize()}: {chosen_dish}")
+
+        print("\nThank you for choosing our restaurant! We hope you enjoy your meal. 😊")
+        input("Press Enter to exit...")
+        sys.exit()
+    elif save_or_no == "no":
+        print("\nThank you for choosing our restaurant! Do not hesitate to reorder. 😊")
+        input("Press Enter to exit...")
+        sys.exit()
+    else:
+        print("⚠️ Invalid response. Please enter 'yes' or 'no'.")
+>>>>>>> 6e699fb9bf9e0b398ee650cbae9afee42031c237
 
 def propose_category(dishType, allergens, category_message):
     """

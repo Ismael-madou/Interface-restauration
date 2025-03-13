@@ -1,6 +1,6 @@
+# recap.py
 import sys
 
-# recap.py
 ICONS = {
     "entree": "🥗",
     "plat principal": "🍛",

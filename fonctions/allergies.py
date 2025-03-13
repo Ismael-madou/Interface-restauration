@@ -3,6 +3,11 @@ import pandas as pd
 from pathlib import Path
 from recap import welcome_message
 
+<<<<<<< HEAD
+=======
+BASE_DIR = Path(__file__).resolve().parent.parent
+MENU_FILE_PATH = BASE_DIR / 'data' / 'processed' / 'menu.xlsx'
+>>>>>>> 6e699fb9bf9e0b398ee650cbae9afee42031c237
 
 # Load Excel files
 menu_data = pd.read_csv('data/processed/dishes.xlsx')
