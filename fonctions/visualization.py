@@ -2,7 +2,7 @@
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
-def display_graph_image(graph_image_path):
+def display_graph_image(image_path):
     """
     Displays a graph image in a graphical window.
 
@@ -11,7 +11,7 @@ def display_graph_image(graph_image_path):
     """
     try:
         # Load the image
-        img = mpimg.imread(graph_image_path)
+        img = mpimg.imread(image_path)
 
         # Display the image
         plt.figure(figsize=(10, 6))
@@ -23,6 +23,6 @@ def display_graph_image(graph_image_path):
         # Show the graphical window
         plt.show(block=True)
     except FileNotFoundError:
-        print(f"⚠️ Error: The image file '{graph_image_path}' was not found.")
+        print(f"⚠️ Error: The image file '{image_path}' was not found.")
     except Exception as e:
         print(f"⚠️ An error occurred while displaying the image: {e}")

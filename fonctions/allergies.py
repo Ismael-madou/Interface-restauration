@@ -3,15 +3,11 @@ import pandas as pd
 from pathlib import Path
 from recap import welcome_message
 
-<<<<<<< HEAD
-=======
 BASE_DIR = Path(__file__).resolve().parent.parent
 MENU_FILE_PATH = BASE_DIR / 'data' / 'processed' / 'menu.xlsx'
->>>>>>> 6e699fb9bf9e0b398ee650cbae9afee42031c237
 
 # Load Excel files
-menu_data = pd.read_csv('data/processed/dishes.xlsx')
-
+menu_data = pd.read_excel(MENU_FILE_PATH)
 
 def ask_allergies():
     """
@@ -20,12 +16,14 @@ def ask_allergies():
     Returns:
         list: List of allergens to avoid.
     """
-    response = input("\nDo you have any allergies? (yes/no): ").strip().lower()
-
-    if response == "yes":
-        return get_allergens()
-    return []
-
+    while True:
+        response = input("\nDo you have any allergies? (yes/no): ").strip().lower()
+        if response == "yes":
+            return get_allergens()
+        elif response == "no":
+            return []
+        else:
+            print("⚠️ Invalid response. Please enter 'yes' or 'no'.")
 
 def get_allergens():
     """
@@ -61,7 +59,6 @@ def get_allergens():
 
         except ValueError:
             print("\nInvalid input. Please enter only numbers separated by commas.")
-
 
 def filter_dishes_by_allergens(dishes, allergens):
     """

@@ -1,6 +1,6 @@
-# recap.py
 import sys
 
+# recap.py
 ICONS = {
     "entree": "🥗",
     "plat principal": "🍛",
@@ -11,7 +11,7 @@ ICONS = {
 }
 
 welcome_message = (
-    "Welcome to our restaurant, \n"
+    "\nWelcome to our restaurant, \n"
     "We will help you choose a dish from our menu \n"
     "depending on your allergens and preferences"
 )
@@ -38,6 +38,5 @@ def print_recap(chosen_products):
             print("\nThank you for choosing our restaurant! We hope you enjoy your meal. 😊")
             input("Press Enter to exit...")
             sys.exit()
-
         else:
             print("⚠️ Invalid response. Please enter 'continue' or 'exit'.")
