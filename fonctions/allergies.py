@@ -1,20 +1,19 @@
-# allergies.py
 import pandas as pd
 from pathlib import Path
-from recap import welcome_message
+from typing import List
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 MENU_FILE_PATH = BASE_DIR / 'data' / 'processed' / 'menu.xlsx'
 
-# Load Excel files
+# Charger les fichiers Excel
 menu_data = pd.read_excel(MENU_FILE_PATH)
 
-def ask_allergies():
+def ask_allergies() -> List[str]:
     """
-    Asks the user if they have any allergies and returns a list of allergens to avoid.
+    Demande à l'utilisateur s'il a des allergies et retourne une liste d'allergènes à éviter.
 
     Returns:
-        list: List of allergens to avoid.
+        List[str]: Liste des allergènes à éviter.
     """
     while True:
         response = input("\nDo you have any allergies? (yes/no): ").strip().lower()
@@ -25,12 +24,12 @@ def ask_allergies():
         else:
             print("⚠️ Invalid response. Please enter 'yes' or 'no'.")
 
-def get_allergens():
+def get_allergens() -> List[str]:
     """
-    Displays the list of available allergens and allows the user to select those to avoid.
+    Affiche la liste des allergènes disponibles et permet à l'utilisateur de sélectionner ceux à éviter.
 
     Returns:
-        list: List of allergens selected by the user.
+        List[str]: Liste des allergènes sélectionnés par l'utilisateur.
     """
     allergens = set()
 
@@ -60,16 +59,16 @@ def get_allergens():
         except ValueError:
             print("\nInvalid input. Please enter only numbers separated by commas.")
 
-def filter_dishes_by_allergens(dishes, allergens):
+def filter_dishes_by_allergens(dishes: List[str], allergens: List[str]) -> List[str]:
     """
-    Filters dishes based on allergens to avoid.
+    Filtre les plats en fonction des allergènes à éviter.
 
     Args:
-        dishes (list): List of dishes to filter.
-        allergens (list): List of allergens to avoid.
+        dishes (List[str]): Liste des plats à filtrer.
+        allergens (List[str]): Liste des allergènes à éviter.
 
     Returns:
-        list: List of filtered dishes.
+        List[str]: Liste des plats filtrés.
     """
     filtered_dishes = []
 
