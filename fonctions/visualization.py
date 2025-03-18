@@ -24,5 +24,7 @@ def display_graph_image(image_path: Path) -> None:
         plt.show(block=True)
     except FileNotFoundError:
         print(f"⚠️ Error: The image file '{image_path}' was not found.")
-    except Exception as e:
-        print(f"⚠️ An error occurred while displaying the image: {e}")
+
+if __name__ == "__main__":
+    image_path = "docs/Dish_occurrences.png"  
+    display_graph_image(image_path)

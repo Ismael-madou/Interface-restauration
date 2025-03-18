@@ -115,10 +115,10 @@ This project was developed by 4 students from the “Statistique pour l'Evaluati
 
 The contributors to this project and their roles are identified below : 
 
-- Ismael Madou Gagi : Data Analyst/Governance
-- Mathéo Henault : Frontend/User Interface
-- Dimitri Delpech : Data Scientist
-- Perle Marie Salma Ndayizeye : Product Owner
+- Ismael Madou Gagi : Interface et Algorithmique 
+- Mathéo Henault : Interface et Algorithmique
+- Dimitri Delpech : Data Analyse 
+- Perle Marie Salma Ndayizeye : Data Analyse 
 
 
 
