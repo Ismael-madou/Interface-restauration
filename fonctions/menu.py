@@ -55,7 +55,8 @@ def propose_snack(allergens: List[str]) -> None:
         for i, dish in enumerate(dishNames, 1):
             print(f"🥪 {i}. {dish}")
         choice = input(
-            "\nChoose a product by entering its number, or type 'back' to choose again (snack/meal/stop): ").strip().lower()
+            "\nChoose a product by entering its number, or type 'back' to choose again, or 'stop' to exit: ").strip().lower()
+
         if choice == "back":
             return ask_meal(allergens)
         elif choice == "stop":
