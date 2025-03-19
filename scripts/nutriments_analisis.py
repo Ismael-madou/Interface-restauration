@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-dishes= pd.read_csv('data/processed/dishes.xlsx') 
-menu= pd.read_csv('data/processed/menu.xlsx') 
+dishes= pd.read_excel('data/processed/dishes.xlsx') 
+menu= pd.read_excel('data/processed/menu.xlsx') 
 # 🔍 Vérifier le nom de la colonne nutriments
 print(dishes.columns)
 nutriment_col = "platProduitNutriment" if "platProduitNutriment" in dishes.columns else "product_nutrient"

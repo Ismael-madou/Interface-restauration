@@ -4,3 +4,4 @@ __pycache__/
 /shelf/
 /workspace.xml
 .idea/
+.DS_Store
