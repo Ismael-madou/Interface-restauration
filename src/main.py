@@ -15,6 +15,7 @@ if __name__ == "__main__":
     Après que l'utilisateur a terminé sa commande, affiche un récapitulatif et une image de graphique.
     """
     while True:
+        
         allergens = ask_allergies()
         ask_meal(allergens)
 
@@ -23,6 +24,4 @@ if __name__ == "__main__":
         if recap_result == "continue":
             continue  # Redémarrer le processus
 
-        # Display the graph image
-        graph_image_path = Path("docs/dish_occurrences.png")
-        display_graph_image(graph_image_path)
+    
