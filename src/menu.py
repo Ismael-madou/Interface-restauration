@@ -4,8 +4,8 @@ from pathlib import Path
 from typing import List, Tuple, Optional
 from allergies import filter_dishes_by_allergens, ask_allergies
 from nutrients import show_nutrient_stats
-from recap import print_recap, ICONS  
-from shared_data import chosen_products  
+from recap import print_recap, ICONS
+from shared_data import chosen_products
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import os
@@ -28,22 +28,22 @@ def display_graph_image(image_path):
         image_path (str): The path to the graph image file to display.
     """
     try:
-       
+
         if not os.path.exists(image_path):
             raise FileNotFoundError(f"The image file '{image_path}' was not found.")
 
-       
+
         img = mpimg.imread(image_path)
 
 
-        plt.figure(figsize=(10, 6))  
+        plt.figure(figsize=(10, 6))
         plt.imshow(img)
-        plt.axis('off') 
-        plt.title("Most Ordered Dishes")  
-        plt.tight_layout() 
+        plt.axis('off')
+        plt.title("Most Ordered Dishes")
+        plt.tight_layout()
 
-      
-        plt.show(block=True)  
+
+        plt.show(block=True)
 
     except FileNotFoundError as e:
         print(f"⚠️ Error: {e}")
@@ -52,14 +52,14 @@ def display_graph_image(image_path):
 
 
 if __name__ == "__main__":
-    image_path = "docs/Dish_occurrences.png"  
+    image_path = "docs/Dish_occurrences.png"
     display_graph_image(image_path)
 def ask_meal(allergens):
     """
-    Demande à l'utilisateur s'il veut un snack, un repas, ou voir les stats.
+   Asks the user if they want a snack, a meal, or to view statistics.
 
     Args:
-        allergens (List[str]): Liste des allergènes à éviter.
+        allergens (List[str]): List of allergens to avoid.
     """
     while True:
         meal_type = input("Do you want a snack, a meal, or view stats? (snack/meal/stats/stop): ").strip().lower()
@@ -81,10 +81,10 @@ def ask_meal(allergens):
 
 def propose_snack(allergens: List[str]) -> None:
     """
-    Propose des snacks à l'utilisateur en fonction des allergènes.
+    Suggests snacks to the user based on allergens.
 
     Args:
-        allergens (List[str]): Liste des allergènes à éviter.
+        allergens (List[str]): List of allergens to avoid.
     """
     dishType = "snack"
 
@@ -108,8 +108,9 @@ def propose_snack(allergens: List[str]) -> None:
                 chosen_dish = dishNames[choice - 1]
                 print(f"\n✅ You have chosen: {chosen_dish}")
 
-                # Demander si l'utilisateur veut voir les ingrédients
+
                 see_ingredients = ask_yes_no("Do you want to see the ingredients of this product?")
+                validate_choice = True
                 if see_ingredients:
                     ingredients = sorted(
                         set(ingredients_data[ingredients_data['dish_name'] == chosen_dish]['product_name'].tolist()))
@@ -118,26 +119,57 @@ def propose_snack(allergens: List[str]) -> None:
                         print(f"\nIngredients of {chosen_dish}:")
                         for i, ingredient in enumerate(ingredients, 1):
                             print(f"{i}. {ingredient}")
+
+
+                        remove_ingredients = ask_yes_no("\nDo you want to remove any ingredients?")
+                        if remove_ingredients:
+                            print("\nEnter the numbers of the ingredients you want to remove (separated by commas):")
+                            for i, ingredient in enumerate(ingredients, 1):
+                                print(f"{i}. {ingredient}")
+                            to_remove = input("Numbers: ").strip()
+                            removed_indices = []
+                            for num_str in to_remove.split(','):
+                                num = num_str.strip()
+                                if num.isdigit():
+                                    idx = int(num) - 1
+                                    if 0 <= idx < len(ingredients):
+                                        removed_indices.append(idx)
+
+                            removed_indices = sorted(set(removed_indices), reverse=True)
+                            for idx in removed_indices:
+                                if 0 <= idx < len(ingredients):
+                                    del ingredients[idx]
+
+                            has_allergen = any(ingredient in allergens for ingredient in ingredients)
+                            if has_allergen:
+                                print("\n⚠️ The modified dish still contains allergens. Please choose another snack.")
+                                validate_choice = False
+                            else:
+                                print("\n✅ Ingredients removed successfully. The dish is now allergen-free.")
+                                validate_choice = ask_yes_no("Do you want to validate this choice?")
+                        else:
+                            validate_choice = ask_yes_no("Do you want to validate this choice?")
                     else:
                         print(f"\nNo ingredients found for {chosen_dish}.")
+                        validate_choice = ask_yes_no("Do you want to validate this choice?")
 
-                    # Demander si l'utilisateur veut valider le choix
-                    validate_choice = ask_yes_no("Do you want to validate this choice?")
-                    if validate_choice:
-                        chosen_products.append((choice, chosen_dish, dishType))
-                else:
+                if validate_choice:
                     chosen_products.append((choice, chosen_dish, dishType))
-
-                another = ask_yes_no("Do you want to add another snack?")
-                if not another:
-                    print("\n✅ We have taken your order into account.")
-                    print_recap()
-                    return
+                    another = ask_yes_no("Do you want to add another snack?")
+                    if not another:
+                        print("\n✅ We have taken your order into account.")
+                        print_recap()
+                        return
+                else:
+                    another = ask_yes_no("Do you want to choose another snack?")
+                    if not another:
+                        print("\n✅ We have taken your order into account.")
+                        print_recap()
+                        return
             else:
                 print("\n⚠️ Invalid choice. Please enter a valid number.")
         else:
             print("\n⚠️ Invalid input. Please enter a number, 'back', or 'stop'.")
-
 
 def propose_menu(allergens: List[str]) -> None:
     # ───────────────
@@ -148,12 +180,12 @@ def propose_menu(allergens: List[str]) -> None:
 
         if answer == "yes":
             propose_category("entree", allergens, "🥗 Here are the available starters:")
-            break  # on sort de la boucle pour passer à la question suivante
+            break
         elif answer == "no":
-            break  # on sort de la boucle, pas de starter
+            break
         elif answer == "stop":
-            stop()  # enregistre éventuellement la commande
-            return  # on arrête ici tout le menu
+            stop()
+            return
         else:
             print("⚠️ Veuillez choisir entre 'yes', 'no' ou 'stop'.")
 
@@ -189,7 +221,7 @@ def propose_menu(allergens: List[str]) -> None:
             stop()
             return
         else:
-            print("⚠️ Veuillez choisir entre 'yes', 'no' ou 'stop'.")
+            print("⚠️ Please choose between 'yes', 'no', or 'stop'.")
 
     # ───────────────
     #  QUESTION 4
@@ -206,7 +238,7 @@ def propose_menu(allergens: List[str]) -> None:
             stop()
             return
         else:
-            print("⚠️ Veuillez choisir entre 'yes', 'no' ou 'stop'.")
+            print("⚠️ Please choose between 'yes', 'no', or 'stop'.")
 
     # ───────────────
     #  QUESTION 5
@@ -223,7 +255,7 @@ def propose_menu(allergens: List[str]) -> None:
             stop()
             return
         else:
-            print("⚠️ Veuillez choisir entre 'yes', 'no' ou 'stop'.")
+            print("⚠️ Please choose between 'yes', 'no', or 'stop'.")
 
     # ───────────────
     #  QUESTION 6
@@ -240,9 +272,9 @@ def propose_menu(allergens: List[str]) -> None:
             stop()
             return
         else:
-            print("⚠️ Veuillez choisir entre 'yes', 'no' ou 'stop'.")
+            print("⚠️ Please choose between 'yes', 'no', or 'stop'.")
 
-    # Quand on a terminé toutes les questions
+
     print("\n✅ We have taken your order into account.")
     print_recap()
 
@@ -250,13 +282,13 @@ def propose_menu(allergens: List[str]) -> None:
 
 def ask_yes_no(question: str) -> bool:
     """
-    Pose une question oui/non à l'utilisateur.
+    Asks a yes/no question to the user.
 
     Args:
-        question (str): La question à poser.
+        question (str): The question to ask.
 
     Returns:
-        bool: True si la réponse est 'yes', False sinon.
+        bool: True if the answer is 'yes', False otherwise.
     """
     while True:
         response = input(f"{question} (yes/no): ").strip().lower()
@@ -267,13 +299,13 @@ def ask_yes_no(question: str) -> bool:
 
 def ask_yes_no_stop(question: str) -> str:
     """
-    Pose une question oui/non/stop à l'utilisateur.
+    Asks a yes/no/stop question to the user.
 
     Args:
-        question (str): La question à poser.
+        question (str): The question to ask.
 
     Returns:
-        str: 'yes', 'no', ou 'stop' en fonction de la réponse de l'utilisateur.
+        str: 'yes', 'no', or 'stop' based on the user's response.
     """
     while True:
         response = input(f"{question} (yes/no/stop): ").strip().lower()
@@ -315,9 +347,9 @@ def stop() -> None:
 
 def propose_category(dishType: str, allergens: List[str], category_message: str) -> None:
     while True:
-        # Récupère la liste des plats correspondants à ce type (ex. 'entree', 'dessert', etc.)
+
         dishNames = menu_data[menu_data['dish_type'] == dishType]['dish_name'].drop_duplicates().tolist()
-        # Filtrage par allergènes
+
         dishNames = filter_dishes_by_allergens(dishNames, allergens)
 
         print(f"\n{category_message}")
@@ -329,13 +361,13 @@ def propose_category(dishType: str, allergens: List[str], category_message: str)
         ).strip().lower()
 
         if choice == "back":
-            # L'utilisateur veut revenir en arrière
+
             return
         elif choice == "stop":
-            # L'utilisateur veut stopper immédiatement
+
             stop()
         elif choice.isdigit():
-            # L'utilisateur a saisi un numéro
+
             choice_num = int(choice)
             if 1 <= choice_num <= len(dishNames):
                 chosen_dish = dishNames[choice_num - 1]
@@ -343,7 +375,7 @@ def propose_category(dishType: str, allergens: List[str], category_message: str)
 
                 see_ingredients = ask_yes_no("Do you want to see the ingredients of this product?")
                 if see_ingredients:
-                    # Récupérer la liste d'ingrédients associés à ce plat
+
                     ingredients = sorted(
                         set(ingredients_data[ingredients_data['dish_name'] == chosen_dish]['product_name'].tolist())
                     )
@@ -354,10 +386,10 @@ def propose_category(dishType: str, allergens: List[str], category_message: str)
                     else:
                         print(f"\nNo ingredients found for {chosen_dish}.")
 
-                    # Initialiser la liste des ingrédients retirés
+
                     removed_ingredients = []
 
-                    # Demander si on souhaite supprimer des ingrédients
+
                     remove_ingredient = ask_yes_no("Do you want to remove any ingredient from this dish?")
                     if remove_ingredient:
                         while True:
@@ -370,7 +402,7 @@ def propose_category(dishType: str, allergens: List[str], category_message: str)
                             ).strip().lower()
 
                             if to_remove == "done":
-                                # Fini d'enlever des ingrédients
+
                                 break
 
                             if to_remove.isdigit():
@@ -398,8 +430,8 @@ def propose_category(dishType: str, allergens: List[str], category_message: str)
                             removed_ingredients  # Liste des ingrédients supprimés
                         ))
                 else:
-                    # L'utilisateur ne veut pas voir les ingrédients
-                    # On récupère donc TOUS les ingrédients par défaut
+
+
                     all_ingredients = sorted(
                         set(ingredients_data[ingredients_data['dish_name'] == chosen_dish]['product_name'].tolist())
                     )
@@ -408,14 +440,14 @@ def propose_category(dishType: str, allergens: List[str], category_message: str)
                         choice_num,
                         chosen_dish,
                         dishType,
-                        all_ingredients,  # tous les ingrédients inclus par défaut
-                        []                # aucun ingrédient supprimé
+                        all_ingredients,
+                        []
                     ))
 
 
                 another = ask_yes_no("Do you want to add another product from this category?")
                 if not another:
-                    # On sort de la fonction après avoir choisi un plat
+
                     return
             else:
                 print("\n⚠️ Invalid choice. Please enter a valid number.")

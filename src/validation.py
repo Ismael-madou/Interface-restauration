@@ -4,27 +4,27 @@ from menu import chosen_products  # Import the shared list from menu.py
 
 def validate_snack(products: List[str]) -> None:
     """
-    Valide le choix de l'utilisateur pour un snack.
+    Validates the user's choice for a snack.
 
     Args:
-        products (List[str]): Liste des snacks disponibles.
+        products (List[str]): List of available snacks.
     """
     chosen_product = input("Choose a product from the list above: ").strip()
-    chosen_products.append(chosen_product)  # Ajouter le produit choisi à la liste partagée
+    chosen_products.append(chosen_product)
 
-    # Demander si l'utilisateur veut ajouter un autre snack
+
     another_product = input("Do you want to choose another product? (yes/no): ").strip().lower()
     if another_product == "yes":
-        validate_snack(products)  # Appel récursif pour ajouter un autre snack
+        validate_snack(products)
     else:
-        print_recap()  # Afficher le récapitulatif de la commande
+        print_recap()
 
 def validate_product(products: List[str]) -> None:
     """
-    Valide le choix de l'utilisateur pour un produit.
+    Validates the user's choice for a product.
 
     Args:
-        products (List[str]): Liste des produits disponibles.
+        products (List[str]): List of available products.
     """
     chosen_product = input("Choose a product from the list above: ").strip()
-    chosen_products.append(chosen_product)  # Ajouter le produit choisi à la liste partagée
+    chosen_products.append(chosen_product)

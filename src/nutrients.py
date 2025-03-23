@@ -5,11 +5,11 @@ from pathlib import Path
 from shared_data import chosen_products
 
 
-# Define path to the Excel data file
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_PATH = BASE_DIR / 'data' / 'processed' / 'dishes.xlsx'
 
-# List of nutrients to analyze (French, English)
+
 NUTRIENTS = [
     ("Calcium", "Calcium"),
     ("Fer", "Iron"),
@@ -28,18 +28,18 @@ def show_nutrient_stats(allergens):
         allergens (List[str]): List of allergens to avoid.
     """
     try:
-        # Load the dish data from Excel
+
         df = pd.read_excel(DATA_PATH)
     except Exception as e:
         print(f"⚠️ Error loading data: {e}")
         return
 
-    # If allergen filtering is required
+
     if allergens:
         if 'product_allergen' not in df.columns:
             print("⚠️ Warning: No allergen information found in dataset.")
         else:
-            # Identify dishes containing at least one allergenic product
+
             plats_avec_allergene = df[
                 df['product_allergen']
                 .astype(str)
@@ -47,17 +47,17 @@ def show_nutrient_stats(allergens):
                 .str.contains('|'.join(allergens), na=False)
             ]['dish_code'].unique()
 
-            # Exclude those dishes from the DataFrame
+
             df = df[~df['dish_code'].isin(plats_avec_allergene)]
 
-    # Show the number of dishes that are allergen-safe
+
     print(f"✅ {len(df['dish_name'].unique())} unique dishes available after filtering out allergenic products.")
 
     if df.empty:
         print("⚠️ No dishes available after applying allergen filters.")
         return
 
-    # Display a menu to the user to choose which nutrient to visualize
+
     while True:
         print("\n📊 Nutrient Statistics Available:")
         for i, (_, en_name) in enumerate(NUTRIENTS, 1):
@@ -95,18 +95,18 @@ def plot_nutrient_chart(df: pd.DataFrame, nutrient: str):
             print("⚠️ 'dish_name' or 'dish_code' column is missing in the dataset.")
             return
 
-        # Aggregate nutrient totals by dish name
+
         df_grouped = df.groupby("dish_name").agg(
-            {nutrient: "sum", "dish_code": "nunique"}  # Count distinct dish codes per dish name
+            {nutrient: "sum", "dish_code": "nunique"}
         ).reset_index()
 
-        # Compute the average nutrient content per dish instance
+
         df_grouped[nutrient] = df_grouped[nutrient] / df_grouped["dish_code"]
 
-        # Sort dishes by nutrient value in descending order and select the top
+
         top_dishes = df_grouped.sort_values(by=nutrient, ascending=False).head(10)
 
-        # Plot horizontal bar chart for visual comparison
+
         plt.figure(figsize=(10, 6))
         sns.barplot(
             y=top_dishes['dish_name'], 
@@ -146,7 +146,7 @@ def get_chosen_products_nutrients():
 
     results = {}
 
-    # Ajoute un numéro unique à chaque plat pour éviter d'écraser les doublons
+
     for index, (dish_index, dish_name, dish_type, included_ingredients, removed_ingredients) in enumerate(chosen_products, start=1):
         dish_rows = df[df["dish_name"] == dish_name]
 
@@ -175,7 +175,7 @@ def get_chosen_products_nutrients():
         code_count = row["dish_code"]
         nutrient_data = {col: round(row[col] / code_count, 2) for col in nutrient_columns}
 
-        # On ajoute l'index unique au nom du plat pour éviter l'écrasement
+
         results[f"{dish_name} ({index})"] = nutrient_data
 
     return results

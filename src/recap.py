@@ -18,12 +18,12 @@ welcome_message = (
 
 def print_recap() -> Optional[str]:
     """
-    Affiche un récapitulatif de la commande avec les icônes et catégories correspondantes.
+    Displays a summary of the order with corresponding icons and categories.
 
     Returns:
-        Optional[str]: 'continue' si l'utilisateur veut continuer, None sinon.
+        Optional[str]: 'continue' if the user wants to continue, None otherwise.
     """
-    from menu import chosen_products  # Importation de la liste partagée
+    from menu import chosen_products
 
     print("\nHere is a summary of your order:")
     for product in chosen_products:
@@ -31,11 +31,11 @@ def print_recap() -> Optional[str]:
         icon = ICONS.get(dishType, "❓")
         print(f"{icon} {dishType.capitalize()}: {chosen_dish}")
 
-    # Demander si l'utilisateur veut continuer ou quitter
+
     while True:
         response = input("\nDo you want to continue or exit? (continue/exit): ").strip().lower()
         if response == "continue":
-            chosen_products.clear()  # Vider la liste pour la prochaine commande
+            chosen_products.clear()
             return "continue"
         elif response == "exit":
             print("\nThank you for choosing our restaurant! We hope you enjoy your meal. 😊")

@@ -7,9 +7,9 @@ def display_graph_image(image_path: str) -> None:
     Displays an image from a relative path to the project root, regardless of where the script is run from.
     """
     try:
-        # Rebuild absolute path from project root
-        base_dir = Path(__file__).resolve().parent.parent  # goes back to the root (outside src/)
-        full_path = base_dir / image_path  # joins with the relative path
+
+        base_dir = Path(__file__).resolve().parent.parent
+        full_path = base_dir / image_path
 
         img = mpimg.imread(full_path)
         plt.figure(figsize=(10, 6))

@@ -10,10 +10,10 @@ menu_data = pd.read_excel(MENU_FILE_PATH)
 
 def ask_allergies() -> List[str]:
     """
-    Demande à l'utilisateur s'il a des allergies et retourne une liste d'allergènes à éviter.
+    Asks the user if they have any allergies and returns a list of allergens to avoid.
 
     Returns:
-        List[str]: Liste des allergènes à éviter.
+        List[str]: List of allergens to avoid.
     """
     while True:
         response = input("\nDo you have any allergies? (yes/no): ").strip().lower()
@@ -26,10 +26,10 @@ def ask_allergies() -> List[str]:
 
 def get_allergens() -> List[str]:
     """
-    Affiche la liste des allergènes disponibles et permet à l'utilisateur de sélectionner ceux à éviter.
+    Displays the list of available allergens and allows the user to select those to avoid.
 
     Returns:
-        List[str]: Liste des allergènes sélectionnés par l'utilisateur.
+        List[str]: List of allergens selected by the user.
     """
     allergens = set()
 
@@ -61,14 +61,14 @@ def get_allergens() -> List[str]:
 
 def filter_dishes_by_allergens(dishes: List[str], allergens: List[str]) -> List[str]:
     """
-    Filtre les plats en fonction des allergènes à éviter.
+    Filters dishes based on allergens to avoid.
 
     Args:
-        dishes (List[str]): Liste des plats à filtrer.
-        allergens (List[str]): Liste des allergènes à éviter.
+        dishes (List[str]): List of dishes to filter.
+        allergens (List[str]): List of allergens to avoid.
 
     Returns:
-        List[str]: Liste des plats filtrés.
+        List[str]: List of filtered dishes.
     """
     filtered_dishes = []
 
