@@ -126,11 +126,8 @@ def plot_nutrient_chart(df: pd.DataFrame, nutrient: str):
 
 
 def get_chosen_products_nutrients():
-    import pandas as pd
-    from pathlib import Path
-    from shared_data import chosen_products
 
-    base_dir = Path(__file__).resolve().parent.parent
+    base_dir = Path(__file__).resolve().parent.parent.parent
     dishes_file_path = base_dir / 'data' / 'processed' / 'dishes.xlsx'
 
     nutrient_columns = [
