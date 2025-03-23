@@ -9,6 +9,7 @@ from shared_data import chosen_products
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import os
+from nutrients import display_chosen_products_nutrients
 
 # Define absolute paths
 base_dir= Path(__file__).resolve().parent.parent
@@ -139,27 +140,112 @@ def propose_snack(allergens: List[str]) -> None:
 
 
 def propose_menu(allergens: List[str]) -> None:
-    """
-    Propose un menu complet à l'utilisateur en fonction des allergènes.
+    # ───────────────
+    #  QUESTION 1
+    # ───────────────
+    while True:
+        answer = input("📌 1. Do you want a starter? (yes/no/stop): ").strip().lower()
 
-    Args:
-        allergens (List[str]): Liste des allergènes à éviter.
-    """
-    if ask_yes_no_stop("📌 1. Do you want a starter?") == "yes":
-        propose_category("entree", allergens, "🥗 Here are the available starters:")
-    if ask_yes_no_stop("📌 2. Do you want a dish?") == "yes":
-        propose_category("plat principal", allergens, "🍛 Here are the available main courses:")
-    if ask_yes_no_stop("📌 3. Do you want a side dish?") == "yes":
-        propose_category("garniture", allergens, "🍚 Here are the available side dishes:")
-    if ask_yes_no_stop("📌 4. Do you want a dessert?") == "yes":
-        propose_category("dessert", allergens, "🍰 Here are the available desserts:")
-    if ask_yes_no_stop("📌 5. Do you want bread?") == "yes":
-        propose_category("pain", allergens, "🍞 Here are the available types of bread:")
-    if ask_yes_no_stop("📌 6. Do you want a supplement?") == "yes":
-        propose_category("autre", allergens, "➕ Here are the available supplements:")
+        if answer == "yes":
+            propose_category("entree", allergens, "🥗 Here are the available starters:")
+            break  # on sort de la boucle pour passer à la question suivante
+        elif answer == "no":
+            break  # on sort de la boucle, pas de starter
+        elif answer == "stop":
+            stop()  # enregistre éventuellement la commande
+            return  # on arrête ici tout le menu
+        else:
+            print("⚠️ Veuillez choisir entre 'yes', 'no' ou 'stop'.")
 
+    # ───────────────
+    #  QUESTION 2
+    # ───────────────
+    while True:
+        answer = input("📌 2. Do you want a dish? (yes/no/stop): ").strip().lower()
+
+        if answer == "yes":
+            propose_category("plat principal", allergens, "🍛 Here are the available main courses:")
+            break
+        elif answer == "no":
+            break
+        elif answer == "stop":
+            stop()
+            return
+        else:
+            print("⚠️ Veuillez choisir entre 'yes', 'no' ou 'stop'.")
+
+    # ───────────────
+    #  QUESTION 3
+    # ───────────────
+    while True:
+        answer = input("📌 3. Do you want a side dish? (yes/no/stop): ").strip().lower()
+
+        if answer == "yes":
+            propose_category("garniture", allergens, "🍚 Here are the available side dishes:")
+            break
+        elif answer == "no":
+            break
+        elif answer == "stop":
+            stop()
+            return
+        else:
+            print("⚠️ Veuillez choisir entre 'yes', 'no' ou 'stop'.")
+
+    # ───────────────
+    #  QUESTION 4
+    # ───────────────
+    while True:
+        answer = input("📌 4. Do you want a dessert? (yes/no/stop): ").strip().lower()
+
+        if answer == "yes":
+            propose_category("dessert", allergens, "🍰 Here are the available desserts:")
+            break
+        elif answer == "no":
+            break
+        elif answer == "stop":
+            stop()
+            return
+        else:
+            print("⚠️ Veuillez choisir entre 'yes', 'no' ou 'stop'.")
+
+    # ───────────────
+    #  QUESTION 5
+    # ───────────────
+    while True:
+        answer = input("📌 5. Do you want bread? (yes/no/stop): ").strip().lower()
+
+        if answer == "yes":
+            propose_category("pain", allergens, "🍞 Here are the available types of bread:")
+            break
+        elif answer == "no":
+            break
+        elif answer == "stop":
+            stop()
+            return
+        else:
+            print("⚠️ Veuillez choisir entre 'yes', 'no' ou 'stop'.")
+
+    # ───────────────
+    #  QUESTION 6
+    # ───────────────
+    while True:
+        answer = input("📌 6. Do you want a supplement? (yes/no/stop): ").strip().lower()
+
+        if answer == "yes":
+            propose_category("autre", allergens, "➕ Here are the available supplements:")
+            break
+        elif answer == "no":
+            break
+        elif answer == "stop":
+            stop()
+            return
+        else:
+            print("⚠️ Veuillez choisir entre 'yes', 'no' ou 'stop'.")
+
+    # Quand on a terminé toutes les questions
     print("\n✅ We have taken your order into account.")
     print_recap()
+
 
 
 def ask_yes_no(question: str) -> bool:
@@ -197,78 +283,139 @@ def ask_yes_no_stop(question: str) -> str:
 
 
 def stop() -> None:
-    """
-    Arrête le programme après avoir demandé à l'utilisateur s'il veut sauvegarder sa commande.
-    """
     save_or_no = input("Do you want to save your order? (yes/no): ").strip().lower()
+
     if save_or_no == "yes":
         print("\nHere is a summary of your order:")
-        for product in chosen_products:
-            choice, chosen_dish, dishType = product
+        for index, product in enumerate(chosen_products, start=1):
+            choice, chosen_dish, dishType, included_ingredients, removed_ingredients = product
             icon = ICONS.get(dishType, "❓")
-            print(f"{icon} {dishType.capitalize()}: {chosen_dish}")
+            print(f"{icon} {dishType.capitalize()}: {chosen_dish} ({index})")
+
+            if included_ingredients:
+                print(f"   ✔️ Ingredients: {', '.join(included_ingredients)}")
+
+            if removed_ingredients:
+                print(f"   ❌ Removed: {', '.join(removed_ingredients)}")
+
+        display_chosen_products_nutrients()
 
         print("\nThank you for choosing our restaurant! We hope you enjoy your meal. 😊")
         input("Press Enter to exit...")
         sys.exit()
+
     elif save_or_no == "no":
         print("\nThank you for choosing our restaurant! Do not hesitate to reorder. 😊")
         input("Press Enter to exit...")
         sys.exit()
+
     else:
         print("⚠️ Invalid response. Please enter 'yes' or 'no'.")
 
 
 def propose_category(dishType: str, allergens: List[str], category_message: str) -> None:
-    """
-    Propose des plats d'une catégorie spécifique et permet à l'utilisateur d'ajouter plusieurs articles.
-
-    Args:
-        dishType (str): Type de plat (ex: "entree", "plat principal").
-        allergens (List[str]): Liste des allergènes à éviter.
-        category_message (str): Message à afficher pour la catégorie.
-    """
     while True:
+        # Récupère la liste des plats correspondants à ce type (ex. 'entree', 'dessert', etc.)
         dishNames = menu_data[menu_data['dish_type'] == dishType]['dish_name'].drop_duplicates().tolist()
+        # Filtrage par allergènes
         dishNames = filter_dishes_by_allergens(dishNames, allergens)
 
         print(f"\n{category_message}")
         for i, dish in enumerate(dishNames, 1):
             print(f"{i}. {dish}")
+
         choice = input(
-            "\nChoose a product by entering its number, or type 'back' to return, or 'stop' to exit: ").strip().lower()
+            "\nChoose a product by entering its number, or type 'back' to return, or 'stop' to exit: "
+        ).strip().lower()
+
         if choice == "back":
+            # L'utilisateur veut revenir en arrière
             return
         elif choice == "stop":
+            # L'utilisateur veut stopper immédiatement
             stop()
         elif choice.isdigit():
-            choice = int(choice)
-            if 1 <= choice <= len(dishNames):
-                chosen_dish = dishNames[choice - 1]
+            # L'utilisateur a saisi un numéro
+            choice_num = int(choice)
+            if 1 <= choice_num <= len(dishNames):
+                chosen_dish = dishNames[choice_num - 1]
                 print(f"\n✅ You have chosen: {chosen_dish}")
 
-                # Demander si l'utilisateur veut voir les ingrédients
                 see_ingredients = ask_yes_no("Do you want to see the ingredients of this product?")
                 if see_ingredients:
+                    # Récupérer la liste d'ingrédients associés à ce plat
                     ingredients = sorted(
-                        set(ingredients_data[ingredients_data['dish_name'] == chosen_dish]['product_name'].tolist()))
-
+                        set(ingredients_data[ingredients_data['dish_name'] == chosen_dish]['product_name'].tolist())
+                    )
                     if ingredients:
                         print(f"\nIngredients of {chosen_dish}:")
-                        for i, ingredient in enumerate(ingredients, 1):
-                            print(f"{i}. {ingredient}")
+                        for idx, ing in enumerate(ingredients, 1):
+                            print(f"{idx}. {ing}")
                     else:
                         print(f"\nNo ingredients found for {chosen_dish}.")
 
-                    # Demander si l'utilisateur veut valider le choix
+                    # Initialiser la liste des ingrédients retirés
+                    removed_ingredients = []
+
+                    # Demander si on souhaite supprimer des ingrédients
+                    remove_ingredient = ask_yes_no("Do you want to remove any ingredient from this dish?")
+                    if remove_ingredient:
+                        while True:
+                            print("\nHere are the current ingredients:")
+                            for idx, ing in enumerate(ingredients, 1):
+                                print(f"{idx}. {ing}")
+
+                            to_remove = input(
+                                "Enter the number of the ingredient to remove (or 'done' if finished): "
+                            ).strip().lower()
+
+                            if to_remove == "done":
+                                # Fini d'enlever des ingrédients
+                                break
+
+                            if to_remove.isdigit():
+                                num = int(to_remove)
+                                if 1 <= num <= len(ingredients):
+                                    removed_item = ingredients.pop(num - 1)
+                                    removed_ingredients.append(removed_item)
+                                    print(f"Removed: {removed_item}")
+                                else:
+                                    print("⚠️ Invalid number.")
+                            else:
+                                print("⚠️ Please enter a valid number or 'done'.")
+
+                    print("\nFinal ingredient list for this dish:")
+                    for idx, ing in enumerate(ingredients, 1):
+                        print(f"{idx}. {ing}")
+
                     validate_choice = ask_yes_no("Do you want to validate this choice?")
                     if validate_choice:
-                        chosen_products.append((choice, chosen_dish, dishType))
+                        chosen_products.append((
+                            choice_num,
+                            chosen_dish,
+                            dishType,
+                            ingredients,         # Liste des ingrédients restants
+                            removed_ingredients  # Liste des ingrédients supprimés
+                        ))
                 else:
-                    chosen_products.append((choice, chosen_dish, dishType))
+                    # L'utilisateur ne veut pas voir les ingrédients
+                    # On récupère donc TOUS les ingrédients par défaut
+                    all_ingredients = sorted(
+                        set(ingredients_data[ingredients_data['dish_name'] == chosen_dish]['product_name'].tolist())
+                    )
+
+                    chosen_products.append((
+                        choice_num,
+                        chosen_dish,
+                        dishType,
+                        all_ingredients,  # tous les ingrédients inclus par défaut
+                        []                # aucun ingrédient supprimé
+                    ))
+
 
                 another = ask_yes_no("Do you want to add another product from this category?")
                 if not another:
+                    # On sort de la fonction après avoir choisi un plat
                     return
             else:
                 print("\n⚠️ Invalid choice. Please enter a valid number.")

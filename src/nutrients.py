@@ -2,6 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
+from shared_data import chosen_products
+
 
 # Define path to the Excel data file
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -121,3 +123,73 @@ def plot_nutrient_chart(df: pd.DataFrame, nutrient: str):
     except Exception as e:
         print(f"⚠️ Error generating chart: {e}")
 
+
+
+def get_chosen_products_nutrients():
+    import pandas as pd
+    from pathlib import Path
+    from shared_data import chosen_products
+
+    base_dir = Path(__file__).resolve().parent.parent
+    dishes_file_path = base_dir / 'data' / 'processed' / 'dishes.xlsx'
+
+    nutrient_columns = [
+        "Proteins", "Carbohydrates", "Fats",
+        "Saturated Fats", "Iron", "Calcium"
+    ]
+
+    try:
+        df = pd.read_excel(dishes_file_path)
+    except Exception as e:
+        print(f"⚠️ Erreur pour charger {dishes_file_path}: {e}")
+        return {}
+
+    results = {}
+
+    # Ajoute un numéro unique à chaque plat pour éviter d'écraser les doublons
+    for index, (dish_index, dish_name, dish_type, included_ingredients, removed_ingredients) in enumerate(chosen_products, start=1):
+        dish_rows = df[df["dish_name"] == dish_name]
+
+        if included_ingredients:
+            dish_rows = dish_rows[dish_rows["product_name"].isin(included_ingredients)]
+        else:
+            dish_rows = pd.DataFrame()
+
+        if dish_rows.empty:
+            results[f"{dish_name} ({index})"] = {col: 0 for col in nutrient_columns}
+            continue
+
+        grouped = dish_rows.groupby("dish_name").agg(
+            {
+                "Proteins": "sum",
+                "Carbohydrates": "sum",
+                "Fats": "sum",
+                "Saturated Fats": "sum",
+                "Iron": "sum",
+                "Calcium": "sum",
+                "dish_code": "nunique"
+            }
+        ).reset_index()
+
+        row = grouped.iloc[0]
+        code_count = row["dish_code"]
+        nutrient_data = {col: round(row[col] / code_count, 2) for col in nutrient_columns}
+
+        # On ajoute l'index unique au nom du plat pour éviter l'écrasement
+        results[f"{dish_name} ({index})"] = nutrient_data
+
+    return results
+
+
+def display_chosen_products_nutrients():
+    nutrients = get_chosen_products_nutrients()
+    if not nutrients:
+        print("\n⚠️ No nutrient data available.")
+        return
+
+    print("\nNutrient details for your chosen dishes:")
+    for dish_name, nutrient_info in nutrients.items():
+        print(f"• {dish_name}")
+        for nutrient, value in nutrient_info.items():
+            print(f"   - {nutrient}: {value}")
+        print()
