@@ -1,18 +1,18 @@
 import sys
 import pandas as pd
 from pathlib import Path
-from typing import List, Tuple, Optional
-from allergies import filter_dishes_by_allergens, ask_allergies
-from nutrients import show_nutrient_stats
-from recap import print_recap, ICONS
-from shared_data import chosen_products
+from typing import List
+from src.interface.allergies import filter_dishes_by_allergens
+from src.interface.nutrients import show_nutrient_stats
+from src.interface.recap import print_recap, ICONS
+from src.interface.shared_data import chosen_products
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import os
-from nutrients import display_chosen_products_nutrients
+from src.interface.nutrients import display_chosen_products_nutrients
 
 # Define absolute paths
-base_dir= Path(__file__).resolve().parent.parent
+base_dir= Path(__file__).resolve().parent.parent.parent
 menu_file_path = base_dir / 'data' / 'processed' / 'menu.xlsx'
 dishes_file_path = base_dir / 'data' / 'processed' / 'dishes.xlsx'
 

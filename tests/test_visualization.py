@@ -1,4 +1,4 @@
-from src.visualization import display_graph_image
+from src.interface.visualization import display_graph_image
 from pathlib import Path
 
 graph_image_path = Path("docs/dish_occurrences.png")

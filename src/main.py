@@ -1,10 +1,9 @@
 # main.py
-from menu import ask_meal, display_graph_image
-from allergies import ask_allergies
-from recap import welcome_message, print_recap  # Import the print_recap function
-from visualization import display_graph_image  # Import the visualization function
-from shared_data import chosen_products  # Import the shared list
-from pathlib import Path
+from src.interface.menu import ask_meal
+from src.interface.allergies import ask_allergies
+from src.interface.recap import welcome_message, print_recap  # Import the print_recap function
+from src.interface.visualization import display_graph_image  # Import the visualization function
+
 print(welcome_message)
 if __name__ == "__main__":
 

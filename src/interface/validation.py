@@ -1,6 +1,6 @@
 from typing import List
-from recap import print_recap
-from menu import chosen_products  # Import the shared list from menu.py
+from src.interface.recap import print_recap
+from src.interface.menu import chosen_products  # Import the shared list from menu.py
 
 def validate_snack(products: List[str]) -> None:
     """

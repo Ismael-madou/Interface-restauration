@@ -23,7 +23,7 @@ def print_recap() -> Optional[str]:
     Returns:
         Optional[str]: 'continue' if the user wants to continue, None otherwise.
     """
-    from menu import chosen_products
+    from src.interface.menu import chosen_products
 
     print("\nHere is a summary of your order:")
     for product in chosen_products:

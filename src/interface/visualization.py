@@ -8,7 +8,7 @@ def display_graph_image(image_path: str) -> None:
     """
     try:
 
-        base_dir = Path(__file__).resolve().parent.parent
+        base_dir = Path(__file__).resolve().parent.parent.parent
         full_path = base_dir / image_path
 
         img = mpimg.imread(full_path)

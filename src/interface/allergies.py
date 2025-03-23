@@ -2,7 +2,7 @@ import pandas as pd
 from pathlib import Path
 from typing import List
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 MENU_FILE_PATH = BASE_DIR / 'data' / 'processed' / 'menu.xlsx'
 
 # Charger les fichiers Excel
