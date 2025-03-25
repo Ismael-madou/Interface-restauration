@@ -1,7 +1,11 @@
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 import pandas as pd
-from allergies import ask_allergies, get_allergens, filter_dishes_by_allergens
+from src.interface.allergies import ask_allergies, get_allergens, filter_dishes_by_allergens
 
 class TestAllergiesFunctions(unittest.TestCase):
 
@@ -11,45 +15,29 @@ class TestAllergiesFunctions(unittest.TestCase):
         self.assertEqual(result, [])
 
     @patch('builtins.input', return_value='yes')
-    @patch('allergies.get_allergens', return_value=['gluten', 'lactose'])
+    @patch('src.interface.allergies.get_allergens', return_value=['gluten', 'lactose'])
     def test_ask_allergies_yes(self, mock_get_allergens, mock_input):
         result = ask_allergies()
         self.assertEqual(result, ['gluten', 'lactose'])
         mock_get_allergens.assert_called_once()
 
-    @patch('builtins.input', return_value='gluten, lactose')
-    @patch('allergies.menu_data', new_callable=MagicMock)
-    def test_get_allergens(self, mock_menu_data, mock_input):
-        mock_menu_data['dish_allergen'].dropna.return_value = pd.Series([
-            'Gluten,Oeufs',
-            'Poisson,Lait'
-        ])
+    @patch('builtins.input', return_value='1, 2')
+    @patch('src.interface.allergies.menu_data', new=pd.DataFrame({
+        'dish_allergen': ['Gluten,Oeufs', 'Poisson,Lait']
+    }))
+    def test_get_allergens(self, mock_input):
         result = get_allergens()
-        self.assertEqual(result, ['gluten', 'lactose'])
+        self.assertEqual(result, ['gluten', 'lait'])  # car 1 = gluten, 2 = lait
 
-    @patch('allergies.menu_data', new_callable=MagicMock)
-    def test_filter_dishes_by_allergens(self, mock_menu_data):
-        mock_menu_data['dish_name'] = pd.Series(['Dish1', 'Dish2'])
-        mock_menu_data['dish_allergen'] = pd.Series([
-            'Gluten,Oeufs',
-            'Poisson,Lait'
-        ])
-        dishes = mock_menu_data['dish_name'].tolist()
+    @patch('src.interface.allergies.menu_data', new=pd.DataFrame({
+        'dish_name': ['Dish1', 'Dish2'],
+        'dish_allergen': ['Gluten,Oeufs', 'Poisson,Lait']
+    }))
+    def test_filter_dishes_by_allergens(self):
+        dishes = ['Dish1', 'Dish2']
         allergens = ['gluten']
-        
-        # Liste pour stocker les plats qui ne contiennent pas de gluten
-        filtered_dishes = []
-        
-        for dish in dishes:
-            dish_allergens = mock_menu_data[mock_menu_data['dish_name'] == dish]['dish_allergen'].values[0]
-            if pd.isna(dish_allergens):
-                dish_allergens = ""
-            dish_allergens = [allergen.strip().lower() for allergen in dish_allergens.split(',')]
-            if not any(allergen in dish_allergens for allergen in allergens):
-                filtered_dishes.append(dish)
-        
-        result = filtered_dishes
-        self.assertEqual(result, [])
+        result = filter_dishes_by_allergens(dishes, allergens)
+        self.assertEqual(result, ['Dish2'])  # Dish2 ne contient pas gluten
 
 if __name__ == '__main__':
     unittest.main()
