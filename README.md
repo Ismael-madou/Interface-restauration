@@ -68,10 +68,9 @@ The project is organized as follows:
                   -  `menu.xlsx/` →  datasets from menu
 
 ### 📂 **docs/**  
-  
 This folder contains all the essential documents related to the project. It includes diagrams, reports, design files, and other resources necessary for understanding and managing the project.
-
     ####`Contents/`
+
         📌 Diagrams and Schematics:
 
             🖥️ Draw.io files – System architecture and workflow visualizations.
@@ -96,11 +95,11 @@ Inside, you will find source code, dependencies, and resources essential for the
 
   #### - `graph/`
       ##### - `gitkeep/` 
-      ##### 🟨🐍🟦 - `interface/` 
+      ##### - `interface/` 
 
   #### - `interface/`
       ##### - `gitkeep/` 
-      ##### - 🟨🐍🟦`allergies.py/` 
+      ##### - `allergies.py/` 
       ##### - `menu.py/` 
       ##### - `nutrients.py/` 
       ##### - `recap.py/` 
@@ -110,7 +109,7 @@ Inside, you will find source code, dependencies, and resources essential for the
 
   #### - `stat/`
       ##### - `gitkeep/` 
-      ##### - 🟨🐍🟦`cleaning_processing.py/` 
+      ##### - `cleaning_processing.py/` 
       ##### - `modifdata.py/` 
       ##### - `visualization.py/` 
   #### - `_init_.py/` 
@@ -124,7 +123,7 @@ Inside, you will find source code, dependencies, and resources essential for the
 - Uses `pytest` or `unittest` for automated testing.  
 
       #### - `pytest.ini/`
-      #### - 🟨🐍🟦`test_allergies.py/`
+      #### - `test_allergies.py/`
       #### - `test_main.py/`
       #### - `test_menu.py/`
       #### - `test_recap.py/`
