@@ -50,6 +50,9 @@ This project aims to provide a user-friendly interface for restaurant customers 
    ```bash
    git clone https://gitlab-mi.univ-reims.fr/mado0007/management_projet_digitaux.git
    cd management_projet_digitaux
+2. Lancer l'application principale :
+   ```bash
+   python -m src.main
 
 
 ## 📁 Project Structure  
