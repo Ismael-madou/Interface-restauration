@@ -6,8 +6,8 @@ from src.interface.shared_data import chosen_products
 
 
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
-DATA_PATH = BASE_DIR / 'data' / 'processed' / 'dishes.xlsx'
+base_dir = Path(__file__).resolve().parent.parent.parent
+data_path = base_dir/ 'data' / 'processed' / 'dishes.xlsx'
 
 
 NUTRIENTS = [
@@ -29,7 +29,7 @@ def show_nutrient_stats(allergens):
     """
     try:
 
-        df = pd.read_excel(DATA_PATH)
+        df = pd.read_excel(data_path)
     except Exception as e:
         print(f"⚠️ Error loading data: {e}")
         return
