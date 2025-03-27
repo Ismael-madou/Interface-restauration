@@ -62,7 +62,7 @@ The project is organized as follows:
 
 ## 📂 docs
 This folder contains all the essential documents related to the project. It includes diagrams, reports, design files, and other resources necessary for understanding and managing the project.
-    #### Contents
+    ## Contents
 
         📌 Diagrams and Schematics:
 
@@ -86,7 +86,7 @@ Make sure to keep this folder organized, as it serves as a reference point for p
 This folder contains the entire program, including all necessary scripts, data files, and configurations. It serves as the central repository for the project's development and execution.
 Inside, you will find source code, dependencies, and resources essential for the application's functionality. Ensure all required files are present before running the program.
 
- ##- graph
+ ## - graph
 
         - gitkeep.py
         - interface.py 
@@ -103,7 +103,7 @@ Inside, you will find source code, dependencies, and resources essential for the
        - validation.py 
        - visualization.py
 
- ##- stat
+ ## -stat
 
        - gitkeep
        - cleaning_processing.py 
