@@ -1,16 +1,16 @@
 # 🍽️ Restaurant Menu & Allergen Information System  
 ## Table of contents 
 
-1. [First steps](#firststep)
-2. [Project Overview](#state)
-3. [Key Features](#use of datasets)  
+ 
+1. [Project Overview](#state)
+2. [Key Features](#use of datasets)  
     
-4. [Technologies Used](#tests)
-5. [Project Structure](#)
-6. [Next Steps](#outils)
-7. [Source](#source)
-8. [Authors](#auteurs)
-9. [License](#licence)
+3. [Technologies Used](#tests)
+4. [Project Structure](#)
+5. [Next Steps](#outils)
+6. [Source](#source)
+7. [Authors](#auteurs)
+8. [License](#licence)
 
 ## 📌 Project Overview  
 This project aims to provide a user-friendly interface for restaurant customers to view dish compositions, including allergenic and non-allergenic ingredients. Our client, a restaurateur, wants to enhance transparency and improve customer experience by allowing them to check meal components before ordering.  
