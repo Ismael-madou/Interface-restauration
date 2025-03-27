@@ -62,7 +62,8 @@ The project is organized as follows:
 
 ## 📂 docs
 This folder contains all the essential documents related to the project. It includes diagrams, reports, design files, and other resources necessary for understanding and managing the project.
-    ## Contents
+
+    ##  -Contents
 
         📌 Diagrams and Schematics:
 
@@ -109,8 +110,8 @@ Inside, you will find source code, dependencies, and resources essential for the
        - cleaning_processing.py 
        - modifdata.py
 
- - _init_.py 
- - main.py 
+ ## - _init_.py 
+ ## - main.py 
   
   
 
