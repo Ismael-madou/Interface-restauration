@@ -34,18 +34,14 @@ This project aims to provide a user-friendly interface for restaurant customers 
    git clone https://gitlab-mi.univ-reims.fr/mado0007/management_projet_digitaux.git
    cd management_projet_digitaux
 
-```
-2. Install the required dependencies:
-
-    - Use the command prompt, go to the root of the project (where the `requirements.txt` file is located) and executing the following command:  
-
+2. Install the required dependencies::  
     ```bash
     pip install -r requirements.txt 
-```    
+
 3. Launch the main application :
    ```bash
    python -m src.main
-```   
+
 ## 📁 Project Structure  
 
 The project is organized as follows: 
