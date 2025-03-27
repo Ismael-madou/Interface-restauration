@@ -49,11 +49,14 @@ The project is organized as follows:
  ## 📂 data 
 - Stores datasets in different states of processing.  
 - Subdirectories:  
-  ####- processed → Contains cleaned and transformed datasets ready for analysis and visualization.
+  - processed → Contains cleaned and transformed datasets ready for analysis and visualization.
+
                   -  dishes.xlsx → dishes cleaned datasets 
                   -  dishesancien.xlsx → the first cleaned datasets from dishes
                   -  menu.xlsx → cleaned datasets from menu 
-  ####- raw → Contains the original datasets received from the client or external sources. 
+
+  - raw → Contains the original datasets received from the client or external sources.
+   
                   -  dishes.xlsx → dishes datasets 
                   -  menu.xlsx →  datasets from menu
 
@@ -84,11 +87,13 @@ This folder contains the entire program, including all necessary scripts, data f
 Inside, you will find source code, dependencies, and resources essential for the application's functionality. Ensure all required files are present before running the program.
 
  ##- graph
+
         - gitkeep.py
         - interface.py 
 
   
 ## - interface
+
        - gitkeep.py
        - allergies.py 
        - menu.py 
@@ -99,9 +104,11 @@ Inside, you will find source code, dependencies, and resources essential for the
        - visualization.py
 
  ##- stat
+
        - gitkeep
        - cleaning_processing.py 
        - modifdata.py
+
  - _init_.py 
  - main.py 
   
