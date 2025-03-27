@@ -12,23 +12,6 @@
 8. [Authors](#auteurs)
 9. [License](#licence)
 
-
-## First steps <a name="firststep"></a>
-
-1. Install the required dependencies, two methods are available:  
-
-    - First method, use the command prompt, go to the root of the project (where the `requirements.txt` file is located) and executing the following command:  
-
-    ```bash
-    pip install -r requirements.txt 
-    ```
-
-  
-
-
-
-
-
 ## 📌 Project Overview  
 This project aims to provide a user-friendly interface for restaurant customers to view dish compositions, including allergenic and non-allergenic ingredients. Our client, a restaurateur, wants to enhance transparency and improve customer experience by allowing them to check meal components before ordering.  
 
@@ -50,11 +33,19 @@ This project aims to provide a user-friendly interface for restaurant customers 
    ```bash
    git clone https://gitlab-mi.univ-reims.fr/mado0007/management_projet_digitaux.git
    cd management_projet_digitaux
-2. Lancer l'application principale :
+   ## First steps <a name="firststep"></a>
+
+2. Install the required dependencies:
+
+    - Use the command prompt, go to the root of the project (where the `requirements.txt` file is located) and executing the following command:  
+
+    ```bash
+    pip install -r requirements.txt 
+    ```
+3. Launch the main application :
    ```bash
    python -m src.main
-
-
+   ```
 ## 📁 Project Structure  
 
 The project is organized as follows: 
