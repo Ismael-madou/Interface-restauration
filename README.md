@@ -41,11 +41,11 @@ This project aims to provide a user-friendly interface for restaurant customers 
 
     ```bash
     pip install -r requirements.txt 
-    ```
+```    
 3. Launch the main application :
    ```bash
    python -m src.main
-   ```
+```   
 ## 📁 Project Structure  
 
 The project is organized as follows: 
