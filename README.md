@@ -33,8 +33,8 @@ This project aims to provide a user-friendly interface for restaurant customers 
    ```bash
    git clone https://gitlab-mi.univ-reims.fr/mado0007/management_projet_digitaux.git
    cd management_projet_digitaux
-   ## First steps <a name="firststep"></a>
 
+```
 2. Install the required dependencies:
 
     - Use the command prompt, go to the root of the project (where the `requirements.txt` file is located) and executing the following command:  
@@ -117,7 +117,6 @@ Inside, you will find source code, dependencies, and resources essential for the
 
       #### - pytest.ini
       #### - test_allergies.py
-      #### - test_main.py
       #### - test_menu.py
       #### - test_recap.py
       #### - test_validation.py
