@@ -27,9 +27,21 @@ def print_recap() -> Optional[str]:
 
     print("\nHere is a summary of your order:")
     for product in chosen_products:
-        choice, chosen_dish, dishType = product
-        icon = ICONS.get(dishType, "❓")
-        print(f"{icon} {dishType.capitalize()}: {chosen_dish}")
+        # Gère les deux formats de tuple (snack: 3 éléments, menu: 5 éléments)
+        if len(product) == 3:
+            choice, chosen_dish, dishType = product
+            icon = ICONS.get(dishType, "❓")
+            print(f"{icon} {dishType.capitalize()}: {chosen_dish}")
+        elif len(product) == 5:
+            choice, chosen_dish, dishType, included_ingredients, removed_ingredients = product
+            icon = ICONS.get(dishType, "❓")
+            print(f"{icon} {dishType.capitalize()}: {chosen_dish}")
+            if included_ingredients:
+                print(f"   ✔️ Ingredients: {', '.join(included_ingredients)}")
+            if removed_ingredients:
+                print(f"   ❌ Removed: {', '.join(removed_ingredients)}")
+        else:
+            print(f"❓ Unknown product format: {product}")
 
 
     while True:
