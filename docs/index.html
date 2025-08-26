@@ -17,22 +17,21 @@
 	<!-- Bouton de contact rapide flottant -->
 	<button id="quickContactBtn" title="Contact rapide"><i class="fa-solid fa-message"></i></button>
 	<div id="quickContactModal" class="quick-modal">
-		<form class="quick-form" onsubmit="event.preventDefault(); sendQuickContact();">
+		<form class="quick-form" action="https://formspree.io/f/mpwjzoey" method="POST" onsubmit="setTimeout(closeQuickContact, 1500)">
 			<h3>Contact rapide</h3>
-			<input type="text" id="qc-name" placeholder="Votre nom" required>
-			<input type="email" id="qc-email" placeholder="Votre email" required>
-			<textarea id="qc-msg" placeholder="Votre message" required></textarea>
+			<input type="text" id="qc-name" name="Nom" placeholder="Votre nom" required>
+			<input type="email" id="qc-email" name="Email" placeholder="Votre email" required>
+			<textarea id="qc-msg" name="Message" placeholder="Votre message" required></textarea>
 			<button type="submit">Envoyer</button>
-			<span id="qc-success" style="display:none;color:#2d8f6f;font-weight:bold;">Message envoyé !</span>
 			<span class="close-quick" onclick="closeQuickContact()">&times;</span>
 		</form>
 	</div>
 
 	<!-- Réseaux sociaux flottants -->
 	<div class="social-bar">
-		<a href="https://www.linkedin.com/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-		<a href="https://twitter.com/" target="_blank" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-		<a href="mailto:contact@exemple.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+		<a href="https://www.linkedin.com/in/ismael-madou-gagi-grema/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+		<a href="https://instagram.com/imadougagi" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+		<a href="mailto:imadougagi@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
 	</div>
 	<nav>
 		<div class="nav-container">
@@ -234,10 +233,10 @@ body.dark-mode .footer-content {
 			<div class="modal-content">
 				<span class="close" onclick="closeModal('demoModal')">&times;</span>
 				<h3>Vidéo de démonstration</h3>
-				<iframe src="https://drive.google.com/file/d/1uhJntYkeTNw-g3Wp1EFDlf0qC-yCIJLE/preview" width="640" height="360" allow="autoplay"></iframe>
-				<div style="margin-top:1em;">
-					<a class="btn-demo" href="https://drive.google.com/file/d/1uhJntYkeTNw-g3Wp1EFDlf0qC-yCIJLE/view?usp=sharing" target="_blank"><i class="fa-solid fa-play"></i> Ouvrir la vidéo dans Google Drive</a>
-				</div>
+				   <iframe src="https://drive.google.com/file/d/1uhJntYkeTNw-g3Wp1EFDlf0qC-yCIJLE/preview" width="640" height="360" allow="autoplay"></iframe>
+				   <div style="margin-top:1em;">
+					   <a class="btn-demo" href="https://drive.google.com/file/d/1uhJntYkeTNw-g3Wp1EFDlf0qC-yCIJLE/view?usp=drive_link" target="_blank"><i class="fa-solid fa-play"></i> Ouvrir la vidéo dans Google Drive</a>
+				   </div>
 			</div>
 		</div>
 		<!-- Modale Données -->
@@ -344,7 +343,7 @@ body.dark-mode .footer-content {
 			<h2><i class="fa-solid fa-envelope"></i> Contact</h2>
 			<div class="contact-block">
 				<p><strong>Email :</strong> <a href="mailto:imadougagi@gmail.com">imadougagi@gmail.com</a></p>
-				<p><strong>GitHub :</strong> <a href="https://github.com/" target="_blank">https://github.com/</a></p>
+				<p><strong>GitHub :</strong> <a href="https://github.com/Ismael-madou" target="_blank">https://github.com/Ismael-madou</a></p>
 				<p><strong>GitLab :</strong> <a href="https://gitlab-mi.univ-reims.fr/users/mado0007/projects" target="_blank">https://gitlab-mi.univ-reims.fr/users/mado0007/projects</a></p>
 				<p><strong>LinkedIn :</strong> <a href="https://www.linkedin.com/in/ismael-madou-gagi-grema/" target="_blank">ismael-madou-gagi-grema</a></p>
 			</div>
@@ -483,10 +482,12 @@ body.dark-mode .footer-content {
 		};
 		if(localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark-mode');
 
-		// Compteur animé (section About)
+
+		// Compteur animé (About & Chiffres clés) - exécution après chargement DOM
 		function animateCount(id, end) {
-			let start = 0;
 			const el = document.getElementById(id);
+			if (!el) return;
+			let start = 0;
 			const step = Math.ceil(end/60);
 			function update() {
 				if(start < end) {
@@ -500,15 +501,15 @@ body.dark-mode .footer-content {
 			}
 			update();
 		}
-		animateCount('countPlats', 120);
-		animateCount('countMenus', 30);
-		animateCount('countAllergenes', 14);
-
-		// Compteur animé (section Chiffres clés)
-		animateCount('keyPlats', 120);
-		animateCount('keyMenus', 30);
-		animateCount('keyUtilisateurs', 50);
-		animateCount('keyAllergenes', 14);
+		document.addEventListener('DOMContentLoaded', function() {
+			animateCount('countPlats', 120);
+			animateCount('countMenus', 30);
+			animateCount('countAllergenes', 14);
+			animateCount('keyPlats', 120);
+			animateCount('keyMenus', 30);
+			animateCount('keyUtilisateurs', 50);
+			animateCount('keyAllergenes', 14);
+		});
 
 		// Partage rapide
 		function shareSite() {
