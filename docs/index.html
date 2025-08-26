@@ -5,19 +5,45 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Interface Restauration - Présentation</title>
+	<link rel="icon" type="image/png" href="https://img.icons8.com/color/48/restaurant.png">
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
+	<!-- Loader animé -->
+	<div id="loader-bg">
+		<div class="loader"></div>
+	</div>
+	<!-- Bouton de contact rapide flottant -->
+	<button id="quickContactBtn" title="Contact rapide"><i class="fa-solid fa-message"></i></button>
+	<div id="quickContactModal" class="quick-modal">
+		<form class="quick-form" onsubmit="event.preventDefault(); sendQuickContact();">
+			<h3>Contact rapide</h3>
+			<input type="text" id="qc-name" placeholder="Votre nom" required>
+			<input type="email" id="qc-email" placeholder="Votre email" required>
+			<textarea id="qc-msg" placeholder="Votre message" required></textarea>
+			<button type="submit">Envoyer</button>
+			<span id="qc-success" style="display:none;color:#2d8f6f;font-weight:bold;">Message envoyé !</span>
+			<span class="close-quick" onclick="closeQuickContact()">&times;</span>
+		</form>
+	</div>
+
+	<!-- Réseaux sociaux flottants -->
+	<div class="social-bar">
+		<a href="https://www.linkedin.com/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+		<a href="https://twitter.com/" target="_blank" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+		<a href="mailto:contact@exemple.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+	</div>
 	<nav>
 		<div class="nav-container">
 			<span class="logo"><i class="fa-solid fa-utensils"></i> Interface Restauration</span>
 			<ul>
 				<li><a href="#about">À propos</a></li>
 				<li><a href="#features">Fonctionnalités</a></li>
-				<li><a href="#demo">Démo</a></li>
+				<li><a href="#faq">FAQ</a></li>
 				<li><a href="#docs">Docs</a></li>
 			</ul>
+			<button id="darkModeBtn" title="Mode sombre"><i class="fa-solid fa-moon"></i></button>
 		</div>
 	</nav>
 	<header>
@@ -26,10 +52,150 @@
 	</header>
 	<main>
 		<section id="about">
-			<h2>À propos du projet</h2>
-			<p>Ce projet facilite la gestion, l’analyse et la visualisation des données liées aux menus et plats, avec une attention particulière portée aux allergies, nutriments et validation des données. Il s’adresse aux gestionnaires de restauration collective souhaitant optimiser la qualité et la sécurité alimentaire.</p>
-			<a class="btn-demo" href="rendu_management_projet.pdf" download><i class="fa-solid fa-file-pdf"></i> Télécharger le rapport PDF</a>
+			<h2>Interface Restauration <span class="badge">SmartMenu</span></h2>
+			<p><strong>SmartMenu</strong> est une interface web moderne dédiée à la gestion intelligente des menus et plats en restauration collective. Elle permet d’analyser, valider et visualiser les données alimentaires, de suivre les allergènes et nutriments, et d’optimiser la qualité des repas proposés. Pensée pour les gestionnaires, diététiciens et responsables qualité, elle favorise la transparence, la sécurité alimentaire et l’innovation dans la restauration.</p>
+			<div class="cta-group">
+				<button class="btn-action" onclick="openModal('logigrammeModal')"><i class="fa-solid fa-diagram-project"></i> Voir le logigramme</button>
+				<button class="btn-action" onclick="openModal('graphModal')"><i class="fa-solid fa-chart-bar"></i> Voir les graphiques</button>
+				<button class="btn-action" onclick="openModal('demoModal')"><i class="fa-solid fa-play"></i> Regarder la démo</button>
+				<a class="btn-action" href="rendu_management_projet.pdf" download><i class="fa-solid fa-file-pdf"></i> Télécharger le rapport PDF</a>
+				<button class="btn-action" onclick="openModal('dataModal')"><i class="fa-solid fa-download"></i> Télécharger les données</button>
+				<button class="btn-action" onclick="shareSite()"><i class="fa-solid fa-share-nodes"></i> Partager</button>
+			</div>
 		</section>
+
+		<!-- Section Chiffres clés -->
+		<section id="chiffres-cles">
+			<h2><i class="fa-solid fa-chart-pie"></i> Chiffres clés</h2>
+			<div class="keyfigures-group">
+				<div class="keyfigures-block">
+					<i class="fa-solid fa-bowl-food"></i>
+					<div class="keyfigures-number" id="keyPlats">0</div>
+					<div class="keyfigures-label">Plats analysés</div>
+				</div>
+				<div class="keyfigures-block">
+					<i class="fa-solid fa-list"></i>
+					<div class="keyfigures-number" id="keyMenus">0</div>
+					<div class="keyfigures-label">Menus proposés</div>
+				</div>
+				<div class="keyfigures-block">
+					<i class="fa-solid fa-people-group"></i>
+					<div class="keyfigures-number" id="keyUtilisateurs">0</div>
+					<div class="keyfigures-label">Utilisateurs</div>
+				</div>
+				<div class="keyfigures-block">
+					<i class="fa-solid fa-allergies"></i>
+					<div class="keyfigures-number" id="keyAllergenes">0</div>
+					<div class="keyfigures-label">Allergènes suivis</div>
+				</div>
+			</div>
+		</section>
+		<section id="faq">
+			<h2><i class="fa-solid fa-circle-question"></i> FAQ</h2>
+			<div class="faq-block">
+				<div class="faq-item">
+					<button class="faq-question" onclick="toggleFaq(this)">À qui s’adresse SmartMenu ?</button>
+					<div class="faq-answer">SmartMenu s’adresse aux gestionnaires de restauration collective, diététiciens, responsables qualité et toute personne souhaitant optimiser la gestion des menus et la sécurité alimentaire.</div>
+				</div>
+				<div class="faq-item">
+					<button class="faq-question" onclick="toggleFaq(this)">Comment télécharger les données ?</button>
+					<div class="faq-answer">Cliquez sur le bouton “Télécharger les données” dans la section d’accueil pour accéder à tous les fichiers Excel du projet.</div>
+				</div>
+				<div class="faq-item">
+					<button class="faq-question" onclick="toggleFaq(this)">Puis-je voir une démonstration sans m’inscrire ?</button>
+					<div class="faq-answer">Oui, la vidéo de démonstration est accessible librement via le bouton “Regarder la démo”.</div>
+				</div>
+				<div class="faq-item">
+					<button class="faq-question" onclick="toggleFaq(this)">Comment contacter l’équipe ?</button>
+					<div class="faq-answer">Vous pouvez utiliser la section Contact en bas de page pour nous écrire ou consulter nos profils professionnels.</div>
+				</div>
+			</div>
+		</section>
+<style>
+.counter-group {
+	display: flex;
+	gap: 2em;
+	justify-content: center;
+	margin: 1.5em 0 0.5em 0;
+}
+.counter-block {
+	background: #f2fdf8;
+	border-radius: 10px;
+	box-shadow: 0 1px 6px #e0e0e0;
+	padding: 1em 2em;
+	font-size: 1.5em;
+	font-weight: bold;
+	color: #2d8f6f;
+	text-align: center;
+	min-width: 90px;
+}
+.faq-block {
+	max-width: 700px;
+	margin: 1.5em auto 0 auto;
+}
+.faq-item {
+	margin-bottom: 1em;
+}
+.faq-question {
+	width: 100%;
+	background: #2d8f6f;
+	color: #fff;
+	border: none;
+	border-radius: 6px;
+	padding: 0.7em 1em;
+	font-size: 1.08em;
+	font-weight: 600;
+	text-align: left;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+.faq-question:hover {
+	background: #1a5c47;
+}
+.faq-answer {
+	display: none;
+	background: #f2fdf8;
+	border-radius: 0 0 8px 8px;
+	padding: 1em;
+	margin-top: 0.2em;
+	font-size: 1em;
+	color: #222;
+	box-shadow: 0 1px 6px #e0e0e0;
+}
+.faq-item.open .faq-answer {
+	display: block;
+	animation: fadeIn 0.4s;
+}
+body.dark-mode {
+	background: #181c1f;
+	color: #e0e0e0;
+}
+body.dark-mode main, body.dark-mode .modal-content {
+	background: #23272b;
+	color: #e0e0e0;
+}
+body.dark-mode header {
+	background: linear-gradient(90deg, #1a5c47 60%, #2d8f6f 100%);
+}
+body.dark-mode .btn-action, body.dark-mode .btn-demo, body.dark-mode .faq-question {
+	background: #1a5c47;
+	color: #fff;
+}
+body.dark-mode .btn-action:hover, body.dark-mode .btn-demo:hover, body.dark-mode .faq-question:hover {
+	background: #2d8f6f;
+}
+body.dark-mode .counter-block, body.dark-mode .contact-block, body.dark-mode .faq-answer {
+	background: #23272b;
+	color: #e0e0e0;
+}
+body.dark-mode .feature, body.dark-mode .member {
+	background: #23272b;
+	color: #e0e0e0;
+}
+body.dark-mode .footer-content {
+	background: #181c1f;
+}
+</style>
 		<section id="features">
 			<h2>Fonctionnalités principales</h2>
 			<div class="features">
@@ -40,28 +206,130 @@
 				<div class="feature"><i class="fa-solid fa-eye"></i><span>Visualisations interactives</span></div>
 			</div>
 		</section>
-		<section id="carousel">
-			<h2><i class="fa-solid fa-images"></i> Aperçu des graphiques</h2>
-			<div class="carousel">
-				<img src="dishes_per_allergen.png" alt="Graphique allergènes" class="carousel-img" style="display:block;">
-				<img src="Dish_occurrences.png" alt="Occurrences de plats" class="carousel-img" style="display:none;">
-				<img src="logigramme.png" alt="Logigramme" class="carousel-img" style="display:none;">
+		<!-- Modale Logigramme -->
+		<div id="logigrammeModal" class="modal">
+			<div class="modal-content">
+				<span class="close" onclick="closeModal('logigrammeModal')">&times;</span>
+				<h3>Logigramme du projet</h3>
+				<img src="logigramme.png" alt="Logigramme" style="max-width:100%;border-radius:10px;box-shadow:0 2px 8px #ccc;">
 			</div>
-			<div class="carousel-controls">
-				<button onclick="showPrev()"><i class="fa-solid fa-chevron-left"></i></button>
-				<button onclick="showNext()"><i class="fa-solid fa-chevron-right"></i></button>
+		</div>
+		<!-- Modale Graphiques -->
+		<div id="graphModal" class="modal">
+			<div class="modal-content">
+				<span class="close" onclick="closeModal('graphModal')">&times;</span>
+				<h3>Graphiques du projet</h3>
+				<div class="carousel">
+					<img src="dishes_per_allergen.png" alt="Graphique allergènes" class="carousel-img" style="display:block;">
+					<img src="Dish_occurrences.png" alt="Occurrences de plats" class="carousel-img" style="display:none;">
+				</div>
+				<div class="carousel-controls">
+					<button onclick="showPrev()"><i class="fa-solid fa-chevron-left"></i></button>
+					<button onclick="showNext()"><i class="fa-solid fa-chevron-right"></i></button>
+				</div>
 			</div>
-		</section>
-		<section id="demo">
-			<h2>Démo</h2>
-			<div class="demo-container">
+		</div>
+		<!-- Modale Démo -->
+		<div id="demoModal" class="modal">
+			<div class="modal-content">
+				<span class="close" onclick="closeModal('demoModal')">&times;</span>
+				<h3>Vidéo de démonstration</h3>
 				<iframe src="https://drive.google.com/file/d/1uhJntYkeTNw-g3Wp1EFDlf0qC-yCIJLE/preview" width="640" height="360" allow="autoplay"></iframe>
-				<div class="demo-actions">
+				<div style="margin-top:1em;">
 					<a class="btn-demo" href="https://drive.google.com/file/d/1uhJntYkeTNw-g3Wp1EFDlf0qC-yCIJLE/view?usp=sharing" target="_blank"><i class="fa-solid fa-play"></i> Ouvrir la vidéo dans Google Drive</a>
 				</div>
-				<p class="demo-tip">Vidéo de démonstration hébergée sur Google Drive.</p>
 			</div>
-		</section>
+		</div>
+		<!-- Modale Données -->
+		<div id="dataModal" class="modal">
+			<div class="modal-content">
+				<span class="close" onclick="closeModal('dataModal')">&times;</span>
+				<h3>Télécharger les données</h3>
+				<ul style="margin-top:1em;">
+					<li><a href="../data/processed/dishes.xlsx" download><i class="fa-solid fa-file-excel"></i> dishes.xlsx</a></li>
+					<li><a href="../data/processed/dishesancien.xlsx" download><i class="fa-solid fa-file-excel"></i> dishesancien.xlsx</a></li>
+					<li><a href="../data/processed/menu.xlsx" download><i class="fa-solid fa-file-excel"></i> menu.xlsx</a></li>
+					<li><a href="../data/raw/antibes-menu-2025.xlsx" download><i class="fa-solid fa-file-excel"></i> antibes-menu-2025.xlsx</a></li>
+					<li><a href="../data/raw/antibes-plats-2025.xlsx" download><i class="fa-solid fa-file-excel"></i> antibes-plats-2025.xlsx</a></li>
+				</ul>
+			</div>
+		</div>
+
+<style>
+.badge {
+	background: #2d8f6f;
+	color: #fff;
+	border-radius: 8px;
+	padding: 0.2em 0.7em;
+	font-size: 0.8em;
+	margin-left: 0.5em;
+	vertical-align: middle;
+	letter-spacing: 1px;
+}
+.cta-group {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1em;
+	margin: 1.5em 0 0.5em 0;
+}
+.btn-action {
+	background: #2d8f6f;
+	color: #fff;
+	border: none;
+	border-radius: 6px;
+	padding: 0.7em 1.3em;
+	font-size: 1.08em;
+	font-weight: 600;
+	box-shadow: 0 1px 4px #b2e2d2;
+	cursor: pointer;
+	transition: background 0.2s, transform 0.2s;
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	text-decoration: none;
+}
+.btn-action:hover {
+	background: #1a5c47;
+	transform: translateY(-2px) scale(1.04);
+}
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	left: 0; top: 0; width: 100vw; height: 100vh;
+	background: rgba(0,0,0,0.5);
+	justify-content: center;
+	align-items: center;
+	animation: fadeIn 0.3s;
+}
+.modal-content {
+	background: #fff;
+	border-radius: 12px;
+	padding: 2em 1.5em 1.5em 1.5em;
+	max-width: 700px;
+	width: 95vw;
+	box-shadow: 0 4px 32px #0002;
+	position: relative;
+	text-align: center;
+}
+.modal .close {
+	position: absolute;
+	top: 12px;
+	right: 18px;
+	font-size: 2em;
+	color: #2d8f6f;
+	cursor: pointer;
+	font-weight: bold;
+	transition: color 0.2s;
+}
+.modal .close:hover {
+	color: #1a5c47;
+}
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+</style>
 		<section id="team">
 			<h2><i class="fa-solid fa-users"></i> L'équipe</h2>
 			<div class="team">
@@ -125,9 +393,49 @@
 		</div>
 		<button id="backToTop" title="Retour en haut"><i class="fa-solid fa-arrow-up"></i></button>
 		<script>
-		// Carrousel d'images simple
+		// Loader animé
+		window.addEventListener('load', function() {
+			setTimeout(function() {
+				document.getElementById('loader-bg').style.opacity = 0;
+				setTimeout(function() {
+					document.getElementById('loader-bg').style.display = 'none';
+				}, 400);
+			}, 700);
+		});
+
+		// Contact rapide
+		const quickBtn = document.getElementById('quickContactBtn');
+		const quickModal = document.getElementById('quickContactModal');
+		quickBtn.onclick = () => quickModal.style.display = 'flex';
+		function closeQuickContact() { quickModal.style.display = 'none'; }
+		function sendQuickContact() {
+			document.getElementById('qc-success').style.display = 'inline';
+			setTimeout(closeQuickContact, 1200);
+			setTimeout(() => {
+				document.getElementById('qc-success').style.display = 'none';
+			}, 2000);
+		}
+		window.onclick = function(event) {
+			if(event.target === quickModal) closeQuickContact();
+			document.querySelectorAll('.modal').forEach(modal => {
+				if(event.target === modal) modal.style.display = 'none';
+			});
+		}
+		// Modales
+		function openModal(id) {
+			document.getElementById(id).style.display = 'flex';
+		}
+		function closeModal(id) {
+			document.getElementById(id).style.display = 'none';
+		}
+		window.onclick = function(event) {
+			document.querySelectorAll('.modal').forEach(modal => {
+				if(event.target === modal) modal.style.display = 'none';
+			});
+		}
+		// Carrousel d'images dans la modale Graphiques
 		let current = 0;
-		const imgs = document.querySelectorAll('.carousel-img');
+		const imgs = document.querySelectorAll('#graphModal .carousel-img');
 		function showImg(idx) {
 			imgs.forEach((img, i) => img.style.display = (i === idx ? 'block' : 'none'));
 		}
@@ -160,6 +468,60 @@
 			btn.style.display = window.scrollY > 300 ? 'block' : 'none';
 		});
 		btn.onclick = () => window.scrollTo({top:0,behavior:'smooth'});
+
+		// FAQ repliable
+		function toggleFaq(el) {
+			const item = el.parentElement;
+			item.classList.toggle('open');
+		}
+
+		// Mode sombre
+		const darkBtn = document.getElementById('darkModeBtn');
+		darkBtn.onclick = () => {
+			document.body.classList.toggle('dark-mode');
+			localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+		};
+		if(localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark-mode');
+
+		// Compteur animé (section About)
+		function animateCount(id, end) {
+			let start = 0;
+			const el = document.getElementById(id);
+			const step = Math.ceil(end/60);
+			function update() {
+				if(start < end) {
+					start += step;
+					if(start > end) start = end;
+					el.textContent = start;
+					requestAnimationFrame(update);
+				} else {
+					el.textContent = end;
+				}
+			}
+			update();
+		}
+		animateCount('countPlats', 120);
+		animateCount('countMenus', 30);
+		animateCount('countAllergenes', 14);
+
+		// Compteur animé (section Chiffres clés)
+		animateCount('keyPlats', 120);
+		animateCount('keyMenus', 30);
+		animateCount('keyUtilisateurs', 50);
+		animateCount('keyAllergenes', 14);
+
+		// Partage rapide
+		function shareSite() {
+			if(navigator.share) {
+				navigator.share({
+					title: 'SmartMenu - Interface Restauration',
+					text: 'Découvrez SmartMenu, l’interface moderne pour la gestion des menus et plats en restauration collective !',
+					url: window.location.href
+				});
+			} else {
+				prompt('Copiez ce lien pour partager le site :', window.location.href);
+			}
+		}
 		</script>
 		<style>
 		#backToTop {
