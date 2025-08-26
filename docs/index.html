@@ -28,6 +28,7 @@
 		<section id="about">
 			<h2>À propos du projet</h2>
 			<p>Ce projet facilite la gestion, l’analyse et la visualisation des données liées aux menus et plats, avec une attention particulière portée aux allergies, nutriments et validation des données. Il s’adresse aux gestionnaires de restauration collective souhaitant optimiser la qualité et la sécurité alimentaire.</p>
+			<a class="btn-demo" href="rendu_management_projet.pdf" download><i class="fa-solid fa-file-pdf"></i> Télécharger le rapport PDF</a>
 		</section>
 		<section id="features">
 			<h2>Fonctionnalités principales</h2>
@@ -37,6 +38,18 @@
 				<div class="feature"><i class="fa-solid fa-seedling"></i><span>Suivi des nutriments</span></div>
 				<div class="feature"><i class="fa-solid fa-check-circle"></i><span>Validation des données</span></div>
 				<div class="feature"><i class="fa-solid fa-eye"></i><span>Visualisations interactives</span></div>
+			</div>
+		</section>
+		<section id="carousel">
+			<h2><i class="fa-solid fa-images"></i> Aperçu des graphiques</h2>
+			<div class="carousel">
+				<img src="dishes_per_allergen.png" alt="Graphique allergènes" class="carousel-img" style="display:block;">
+				<img src="Dish_occurrences.png" alt="Occurrences de plats" class="carousel-img" style="display:none;">
+				<img src="logigramme.png" alt="Logigramme" class="carousel-img" style="display:none;">
+			</div>
+			<div class="carousel-controls">
+				<button onclick="showPrev()"><i class="fa-solid fa-chevron-left"></i></button>
+				<button onclick="showNext()"><i class="fa-solid fa-chevron-right"></i></button>
 			</div>
 		</section>
 		<section id="demo">
@@ -49,6 +62,25 @@
 				<p class="demo-tip">Vidéo de démonstration hébergée sur Google Drive.</p>
 			</div>
 		</section>
+		<section id="team">
+			<h2><i class="fa-solid fa-users"></i> L'équipe</h2>
+			<div class="team">
+				<div class="member">
+					<img src="https://ui-avatars.com/api/?name=Ismael+Madou&background=2d8f6f&color=fff" alt="Ismael Madou">
+					<span>Ismael Madou</span>
+				</div>
+				<!-- Ajoute d'autres membres ici si besoin -->
+			</div>
+		</section>
+		<section id="contact">
+			<h2><i class="fa-solid fa-envelope"></i> Contact</h2>
+			<div class="contact-block">
+				<p><strong>Email :</strong> <a href="mailto:imadougagi@gmail.com">imadougagi@gmail.com</a></p>
+				<p><strong>GitHub :</strong> <a href="https://github.com/" target="_blank">https://github.com/</a></p>
+				<p><strong>GitLab :</strong> <a href="https://gitlab-mi.univ-reims.fr/users/mado0007/projects" target="_blank">https://gitlab-mi.univ-reims.fr/users/mado0007/projects</a></p>
+				<p><strong>LinkedIn :</strong> <a href="https://www.linkedin.com/in/ismael-madou-gagi-grema/" target="_blank">ismael-madou-gagi-grema</a></p>
+			</div>
+		</section>
 		<section id="docs">
 			<h2>Documentation</h2>
 			<ul>
@@ -56,12 +88,110 @@
 				<li><a href="https://github.com/Ismael-madou/Interface-restauration" target="_blank">Dépôt GitHub</a></li>
 			</ul>
 		</section>
+<style>
+.contact-block {
+	background: #f2fdf8;
+	border-radius: 10px;
+	box-shadow: 0 1px 6px #e0e0e0;
+	padding: 1.2em 1.5em;
+	max-width: 500px;
+	margin: 1.2em auto 0 auto;
+	font-size: 1.08em;
+}
+.contact-block p {
+	margin: 0.5em 0;
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+}
+.contact-block a {
+	color: #2d8f6f;
+	word-break: break-all;
+}
+.contact-block a:hover {
+	text-decoration: underline;
+	color: #1a5c47;
+}
+</style>
 	</main>
 	<footer>
 		<div class="footer-content">
 			<span>&copy; 2025 Interface Restauration</span>
 			<span> | Réalisé par l’équipe Management des Projets</span>
+			<span class="footer-social">
+				<a href="https://github.com/Ismael-madou" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+				<a href="mailto:imadougagi@gmail.com" title="Mail"><i class="fa-solid fa-envelope"></i></a>
+			</span>
 		</div>
+		<button id="backToTop" title="Retour en haut"><i class="fa-solid fa-arrow-up"></i></button>
+		<script>
+		// Carrousel d'images simple
+		let current = 0;
+		const imgs = document.querySelectorAll('.carousel-img');
+		function showImg(idx) {
+			imgs.forEach((img, i) => img.style.display = (i === idx ? 'block' : 'none'));
+		}
+		function showPrev() {
+			current = (current - 1 + imgs.length) % imgs.length;
+			showImg(current);
+		}
+		function showNext() {
+			current = (current + 1) % imgs.length;
+			showImg(current);
+		}
+		if(imgs.length) showImg(current);
+
+		// Animation fade-in sur les sections
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if(entry.isIntersecting) {
+					entry.target.classList.add('fade-in');
+				}
+			});
+		}, { threshold: 0.15 });
+		document.querySelectorAll('main section').forEach(sec => {
+			sec.classList.add('fade-init');
+			observer.observe(sec);
+		});
+
+		// Bouton retour en haut
+		const btn = document.getElementById('backToTop');
+		window.addEventListener('scroll', () => {
+			btn.style.display = window.scrollY > 300 ? 'block' : 'none';
+		});
+		btn.onclick = () => window.scrollTo({top:0,behavior:'smooth'});
+		</script>
+		<style>
+		#backToTop {
+			position: fixed;
+			bottom: 30px;
+			right: 30px;
+			background: #2d8f6f;
+			color: #fff;
+			border: none;
+			border-radius: 50%;
+			width: 44px;
+			height: 44px;
+			font-size: 1.3em;
+			box-shadow: 0 2px 8px #b2e2d2;
+			cursor: pointer;
+			display: none;
+			z-index: 100;
+			transition: background 0.2s;
+		}
+		#backToTop:hover {
+			background: #1a5c47;
+		}
+		.fade-init {
+			opacity: 0;
+			transform: translateY(40px);
+			transition: opacity 0.8s, transform 0.8s;
+		}
+		.fade-in {
+			opacity: 1 !important;
+			transform: none !important;
+		}
+		</style>
 	</footer>
 </body>
 </html>
