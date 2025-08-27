@@ -28,11 +28,39 @@ This project aims to provide a user-friendly interface for restaurant customers 
 - **VS Code**: Development environment  
 - **GitHub** for version control
 
+## 🌐 Website & Demo
+
+The project features a modern, interactive website hosted on GitHub Pages:
+
+- **Live site:** [https://ismael-madou.github.io/Interface-restauration/](https://ismael-madou.github.io/Interface-restauration/)
+- The site includes: animated statistics, FAQ, downloadable data, team/contact, and a video demo.
+
+### Demo Video Integration
+
+The demonstration video is hosted externally (Google Drive) and embedded in the site for fast, reliable access without exceeding GitHub's file size limits.
+
+**How to host and integrate a video demo:**
+1. Upload your video to Google Drive.
+2. Set sharing to "Anyone with the link can view".
+3. Copy the file ID from the share link (format: `https://drive.google.com/file/d/FILE_ID/view?...`).
+4. To embed in HTML, use:
+    ```html
+    <iframe src="https://drive.google.com/file/d/FILE_ID/preview" width="640" height="360" allow="autoplay"></iframe>
+    ```
+5. For a direct link button, use:
+    ```html
+    <a href="https://drive.google.com/file/d/FILE_ID/view?usp=sharing" target="_blank">Ouvrir la vidéo dans Google Drive</a>
+    ```
+
+This approach avoids large files in the repository and ensures smooth video playback for all users.
+
+---
 ##  Getting Started
+
 1. Clone the repository:
-   ```bash
-   git clone https://gitlab-mi.univ-reims.fr/mado0007/management_projet_digitaux.git
-   cd management_projet_digitaux
+    ```bash
+    git clone https://github.com/Ismael-madou/Interface-restauration.git
+    cd Interface-restauration
 
 2. Install the required dependencies::  
     ```bash
